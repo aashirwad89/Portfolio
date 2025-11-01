@@ -240,7 +240,7 @@ const About = () => {
     download="Aashirwad_Singh_Resume.docx" // file download name
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
-    className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg font-semibold text-white"
+    className="px-6 py-3 bg-linear-to-r from-cyan-500 to-blue-500 rounded-lg font-semibold text-white"
   >
     Download CV
   </motion.a>

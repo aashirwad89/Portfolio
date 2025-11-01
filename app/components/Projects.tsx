@@ -2,7 +2,8 @@
 import { useEffect, useRef } from 'react';
 import { 
   FaHotel, FaVideo, FaRobot, FaLightbulb, FaGithub, FaLinkedin,
-  FaExternalLinkAlt, FaGithubAlt
+   FaGithubAlt,
+   FaCloudscale
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
@@ -146,7 +147,7 @@ const Projects = () => {
   const projects = [
     {
       title: 'WanderBook',
-      description: 'Hotel booking platform with real-time availability and secure payments.',
+      description: 'Hotel booking platform with real-time availability and owner-based feature.',
       icon: FaHotel,
       color: '#06b6d4',
       tags: ['Node.js', 'MongoDB', 'ExpressJS', 'Passport'],
@@ -177,19 +178,19 @@ const Projects = () => {
       status: 'completed'
     },
     {
-      title: 'DevSync',
-      description: 'Version control system with repository management tools.',
-      icon: FaGithub,
+      title: 'Dev-Sync',
+      description: 'In progress',
+      icon: FaCloudscale,
       color: '#6366f1',
-      tags: ['Next.js', 'MERN'],
+      tags: ['Future Project'],
       status: 'progress'
     },
     {
       title: 'ProConnect',
-      description: 'Professional networking platform for career opportunities.',
-      icon: FaLinkedin,
+      description: 'In Progress',
+      icon: FaCloudscale,
       color: '#0ea5e9',
-      tags: ['NextAuth', 'MERN', 'AWS'],
+      tags: ['Future Project'],
       status: 'progress'
     }
   ];

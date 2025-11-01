@@ -1,6 +1,9 @@
 "use client"
 import {  FaCalendarAlt, FaMapMarkerAlt, FaCode, FaChalkboardTeacher, FaTasks, FaLaptopCode } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { Variants } from "framer-motion";
+
+
 
 const Experience = () => {
   const experiences = [
@@ -71,27 +74,27 @@ const Experience = () => {
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
+ const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
     }
-  };
+  }
+};
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut'
-      }
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 }, // optional: add y offset to see motion
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
     }
-  };
+  }
+};
 
   return (
     <div id='experience' className="min-h-screen bg-black text-white py-16 px-4 sm:px-8">

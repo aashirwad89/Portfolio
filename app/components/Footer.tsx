@@ -76,7 +76,7 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Let's Work Together</h4>
             <p className="text-gray-400 text-sm mb-4">
-              I'm available for freelance projects and full-time opportunities.
+              Available for freelance projects and full-time opportunities.
             </p>
             <motion.a
               href="mailto:aashirwad@example.com"
