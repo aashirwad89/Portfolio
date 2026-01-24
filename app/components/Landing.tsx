@@ -23,6 +23,21 @@ const Landing = () => {
     let animationFrameId: number;
     let time = 0;
 
+    // Coding symbols and keywords
+    const codeSymbols = ['<', '>', '{', '}', '(', ')', '[', ']', ';', '=', '+', '-', '*', '/', 'fn', 'if', 'let', 'var', 'const', '0', '1', '→', '←'];
+    const matrixChars: Array<{x: number, y: number, char: string, speed: number, opacity: number}> = [];
+    
+    // Initialize matrix characters
+    for (let i = 0; i < (window.innerWidth < 768 ? 30 : 50); i++) {
+      matrixChars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        char: codeSymbols[Math.floor(Math.random() * codeSymbols.length)],
+        speed: 0.5 + Math.random() * 1.5,
+        opacity: Math.random()
+      });
+    }
+
     const draw3DScene = () => {
       // Clear canvas with fade effect
       ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
@@ -36,11 +51,27 @@ const Landing = () => {
 
       time += 0.008;
 
+      // Draw falling matrix code effect in background
+      ctx.font = `${14 * scale}px monospace`;
+      matrixChars.forEach((char) => {
+        ctx.fillStyle = `rgba(6, 182, 212, ${char.opacity * 0.3})`;
+        ctx.fillText(char.char, char.x, char.y);
+        
+        char.y += char.speed;
+        char.opacity = 0.3 + Math.sin(time * 2 + char.x) * 0.3;
+        
+        if (char.y > canvas.height) {
+          char.y = -20;
+          char.x = Math.random() * canvas.width;
+          char.char = codeSymbols[Math.floor(Math.random() * codeSymbols.length)];
+        }
+      });
+
       ctx.save();
       ctx.translate(centerX, centerY);
 
-      // Rotating 3D wireframe cube with nested structures
-      const drawWireframeCube = (size: number, rotation: number, color: string, alpha: number) => {
+      // Rotating 3D code blocks
+      const drawCodeBlock = (size: number, rotation: number, color: string, alpha: number, codeText: string) => {
         ctx.save();
         
         const rotX = rotation;
@@ -80,19 +111,21 @@ const Landing = () => {
         const perspective = 600;
         const projected = rotated.map(v => {
           const factor = perspective / (perspective + v[2]);
-          return [v[0] * factor, v[1] * factor];
+          return [v[0] * factor, v[1] * factor, v[2]];
         });
 
-        // Draw edges
+        // Draw edges with glow
         const edges = [
-          [0,1],[1,2],[2,3],[3,0], // front
-          [4,5],[5,6],[6,7],[7,4], // back
-          [0,4],[1,5],[2,6],[3,7]  // connecting
+          [0,1],[1,2],[2,3],[3,0],
+          [4,5],[5,6],[6,7],[7,4],
+          [0,4],[1,5],[2,6],[3,7]
         ];
 
         ctx.strokeStyle = color;
         ctx.lineWidth = 2;
         ctx.globalAlpha = alpha;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 10;
 
         edges.forEach(([i, j]) => {
           ctx.beginPath();
@@ -101,12 +134,24 @@ const Landing = () => {
           ctx.stroke();
         });
 
-        // Draw vertices with glow
+        ctx.shadowBlur = 0;
+
+        // Draw code text on front face
+        ctx.globalAlpha = alpha * 0.8;
+        ctx.font = `${10 * scale}px monospace`;
         ctx.fillStyle = color;
-        projected.forEach(p => {
-          ctx.beginPath();
-          ctx.arc(p[0], p[1], 4 * scale, 0, Math.PI * 2);
-          ctx.fill();
+        const centerFaceX = (projected[0][0] + projected[1][0] + projected[2][0] + projected[3][0]) / 4;
+        const centerFaceY = (projected[0][1] + projected[1][1] + projected[2][1] + projected[3][1]) / 4;
+        ctx.fillText(codeText, centerFaceX - 15 * scale, centerFaceY);
+
+        // Draw vertices with coding symbols
+        ctx.globalAlpha = alpha;
+        projected.forEach((p, idx) => {
+          // Draw glowing bracket at each vertex
+          ctx.fillStyle = color;
+          ctx.font = `${8 * scale}px monospace`;
+          const symbol = ['{', '}', '<', '>', '(', ')', '[', ']'][idx];
+          ctx.fillText(symbol, p[0] - 4 * scale, p[1] + 4 * scale);
           
           // Glow effect
           ctx.shadowColor = color;
@@ -120,24 +165,25 @@ const Landing = () => {
         ctx.restore();
       };
 
-      // Multiple nested cubes
-      drawWireframeCube(120, time, '#06b6d4', 0.8);
-      drawWireframeCube(80, -time * 1.3, '#a855f7', 0.6);
-      drawWireframeCube(50, time * 1.7, '#ec4899', 0.5);
+      // Multiple nested code blocks with different labels
+      drawCodeBlock(120, time, '#06b6d4', 0.8, '<HTML/>');
+      drawCodeBlock(80, -time * 1.3, '#a855f7', 0.6, '{CSS}');
+      drawCodeBlock(50, time * 1.7, '#ec4899', 0.5, 'JS();');
 
-      // Orbiting particles
+      // Orbiting code particles
       const particleCount = isMobile ? 12 : 20;
       for (let i = 0; i < particleCount; i++) {
         const angle = (i / particleCount) * Math.PI * 2 + time;
         const radius = (100 + i * 10) * scale;
         const x = Math.cos(angle) * radius;
         const y = Math.sin(angle) * radius * 0.6;
-        const size = (3 + Math.sin(time * 2 + i) * 2) * scale;
         
-        ctx.beginPath();
-        ctx.arc(x, y, size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(6, 182, 212, ${0.4 + Math.sin(time + i) * 0.3})`;
-        ctx.fill();
+        // Draw code symbols as particles
+        ctx.globalAlpha = 0.4 + Math.sin(time + i) * 0.3;
+        ctx.font = `${(10 + Math.sin(time * 2 + i) * 3) * scale}px monospace`;
+        ctx.fillStyle = '#06b6d4';
+        const symbol = codeSymbols[i % codeSymbols.length];
+        ctx.fillText(symbol, x - 5 * scale, y + 5 * scale);
         
         // Connection lines
         if (i > 0) {
@@ -154,7 +200,7 @@ const Landing = () => {
         }
       }
 
-      // Grid background
+      // Binary code grid background
       ctx.strokeStyle = 'rgba(6, 182, 212, 0.1)';
       ctx.lineWidth = 1;
       const gridSize = isMobile ? 40 : 50;
@@ -170,6 +216,16 @@ const Landing = () => {
         ctx.moveTo(i * scale, -gridRange * scale);
         ctx.lineTo(i * scale, gridRange * scale);
         ctx.stroke();
+      }
+
+      // Add binary numbers at grid intersections
+      ctx.font = `${6 * scale}px monospace`;
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.2)';
+      for (let i = -gridRange; i <= gridRange; i += gridSize * 2) {
+        for (let j = -gridRange; j <= gridRange; j += gridSize * 2) {
+          const binary = Math.random() > 0.5 ? '1' : '0';
+          ctx.fillText(binary, i * scale, j * scale);
+        }
       }
 
       ctx.restore();
@@ -230,7 +286,7 @@ const Landing = () => {
         <div className={`fixed inset-0 bg-black/95 backdrop-blur-lg lg:hidden transition-transform duration-300 ease-in-out ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
-          <div className="flex  flex-col items-center justify-center h-full gap-8">
+          <div className="flex flex-col items-center justify-center h-full gap-8">
             {['Home', 'About', 'Experience', 'Education', 'Skills', 'Projects', 'Participation'].map((item) => (
               <a
                 key={item}
@@ -261,7 +317,7 @@ const Landing = () => {
             Hi, This is <span className="text-blue-600">Aashirwad</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-300 mb-2">
-            Full Stack Developer & UI/UX Enthusiast
+            Software Developer | Tech Enthusiast
           </p>
           <p className="text-sm md:text-base text-gray-400 mb-2">
             I craft exceptional digital experiences with clean code and elegant design.
@@ -283,7 +339,7 @@ const Landing = () => {
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12">
             <button className="flex cursor-pointer items-center justify-center gap-2 px-5 md:px-6 py-3 bg-blue-700 hover:bg-blue-600 rounded-lg transition-colors text-sm md:text-base">
               <Download className="w-4 h-4 md:w-5 md:h-5" />
-              <a href="/Aashirwad_Resume_Updated.docx" download="Aashirwad_Singh_Resume.docx">Download Resume</a>
+              <a href="/Resume.pdf" download="Aashirwad_Singh_Resume.pdf">Download Resume</a>
             </button>
             <button className="px-5 md:px-6 py-3 cursor-pointer border border-gray-700 hover:border-gray-500 rounded-lg transition-colors text-sm md:text-base">
               <a href="#projects">View Projects</a>

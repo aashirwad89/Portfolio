@@ -8,9 +8,9 @@ import { Variants } from "framer-motion";
 const Experience = () => {
   const experiences = [
     {
-      role: 'Project Manager',
+      role: 'Scrum Master & Technical Lead',
       company: 'BodhaSoft',
-      duration: '2 Months',
+      duration: '4 Months',
       period: 'Oct 2025 - Present',
       location: 'Remote',
       type: 'Current Position',

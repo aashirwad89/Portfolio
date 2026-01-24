@@ -236,8 +236,8 @@ const About = () => {
             {/* CTA Buttons */}
             <div className="flex gap-4">
                 <motion.a
-    href="/Aashirwad_Resume_Updated.docx" // public folder me rakha hua file path
-    download="Aashirwad_Singh_Resume.docx" // file download name
+    href="/Resume.pdf" // public folder me rakha hua file path
+    download="Aashirwad_Resume.pdf" // file download name
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
     className="px-6 py-3 bg-linear-to-r from-cyan-500 to-blue-500 rounded-lg font-semibold text-white"
