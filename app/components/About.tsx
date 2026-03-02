@@ -1,283 +1,480 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client"
-import { useEffect, useRef } from 'react';
-import { FaCode, FaLaptopCode,  FaUsers } from 'react-icons/fa';
+import { FaCode, FaLaptopCode, FaUsers, FaArrowRight } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const About = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    canvas.width = 400;
-    canvas.height = 400;
-
-    let animationFrameId: number;
-    let rotation = 0;
-    let mouseX = 0;
-    let mouseY = 0;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = (e.clientX - rect.left - canvas.width / 2) / 50;
-      mouseY = (e.clientY - rect.top - canvas.height / 2) / 50;
-    };
-
-    canvas.addEventListener('mousemove', handleMouseMove);
-
-    const draw3DModel = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-
-      rotation += 0.01;
-
-      // Draw 3D Cube/Box representing developer workspace
-      const cubeSize = 80;
-      const depth = 40;
-
-      ctx.save();
-      ctx.translate(centerX + mouseX, centerY + mouseY);
-
-      // Face 1 (front) - Monitor/Screen
-      ctx.beginPath();
-      const x1 = Math.cos(rotation) * cubeSize;
-      const y1 = Math.sin(rotation) * cubeSize;
-      const x2 = Math.cos(rotation + Math.PI / 2) * cubeSize;
-      const y2 = Math.sin(rotation + Math.PI / 2) * cubeSize;
-
-      const gradient1 = ctx.createLinearGradient(-cubeSize, -cubeSize, cubeSize, cubeSize);
-      gradient1.addColorStop(0, '#06b6d4');
-      gradient1.addColorStop(1, '#3b82f6');
-
-      ctx.moveTo(x1, y1 - depth);
-      ctx.lineTo(x2, y2 - depth);
-      ctx.lineTo(-x1, -y1 - depth);
-      ctx.lineTo(-x2, -y2 - depth);
-      ctx.closePath();
-      ctx.fillStyle = gradient1;
-      ctx.fill();
-      ctx.strokeStyle = '#0891b2';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Face 2 (top)
-      const gradient2 = ctx.createLinearGradient(-cubeSize, -cubeSize, cubeSize, 0);
-      gradient2.addColorStop(0, '#8b5cf6');
-      gradient2.addColorStop(1, '#a855f7');
-
-      ctx.beginPath();
-      ctx.moveTo(x1, y1 - depth);
-      ctx.lineTo(x1, y1);
-      ctx.lineTo(-x2, -y2);
-      ctx.lineTo(-x2, -y2 - depth);
-      ctx.closePath();
-      ctx.fillStyle = gradient2;
-      ctx.fill();
-      ctx.strokeStyle = '#7c3aed';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Face 3 (side)
-      const gradient3 = ctx.createLinearGradient(0, -cubeSize, cubeSize, cubeSize);
-      gradient3.addColorStop(0, '#ec4899');
-      gradient3.addColorStop(1, '#f43f5e');
-
-      ctx.beginPath();
-      ctx.moveTo(x2, y2 - depth);
-      ctx.lineTo(x2, y2);
-      ctx.lineTo(-x1, -y1);
-      ctx.lineTo(-x1, -y1 - depth);
-      ctx.closePath();
-      ctx.fillStyle = gradient3;
-      ctx.fill();
-      ctx.strokeStyle = '#db2777';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Add code symbols on the front face
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-      ctx.font = 'bold 24px monospace';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('</>', 0, -depth);
-
-      // Floating particles around
-      for (let i = 0; i < 8; i++) {
-        const angle = (rotation * 2 + (i * Math.PI) / 4);
-        const radius = 120 + Math.sin(rotation + i) * 10;
-        const px = Math.cos(angle) * radius;
-        const py = Math.sin(angle) * radius;
-        
-        ctx.beginPath();
-        ctx.arc(px, py, 3, 0, Math.PI * 2);
-        ctx.fillStyle = i % 3 === 0 ? '#06b6d4' : i % 3 === 1 ? '#8b5cf6' : '#ec4899';
-        ctx.fill();
-      }
-
-      // Orbital rings
-      ctx.strokeStyle = 'rgba(6, 182, 212, 0.3)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, 140, 60, rotation, 0, Math.PI * 2);
-      ctx.stroke();
-
-      ctx.strokeStyle = 'rgba(139, 92, 246, 0.3)';
-      ctx.beginPath();
-      ctx.ellipse(0, 0, 140, 60, -rotation, 0, Math.PI * 2);
-      ctx.stroke();
-
-      ctx.restore();
-
-      animationFrameId = requestAnimationFrame(draw3DModel);
-    };
-
-    draw3DModel();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
   const stats = [
-    { icon: FaCode, value: '5+', label: 'Projects Completed' },
-    { icon: FaLaptopCode, value: '10+', label: 'Technologies' },
-    { icon: FaUsers, value: '95%', label: 'Client Satisfaction' }
+    { icon: FaCode, value: '15+', label: 'Projects', color: '#06b6d4', rotate: '-2deg' },
+    { icon: FaLaptopCode, value: '10+', label: 'Technologies', color: '#8b5cf6', rotate: '1.5deg' },
+    { icon: FaUsers, value: '95%', label: 'Satisfaction', color: '#10b981', rotate: '-1deg' },
   ];
 
+  const sideNotes = [
+    { text: '// clean code', color: '#06b6d4', top: '8%', rotate: '-6deg' },
+    { text: '> always learning', color: '#8b5cf6', top: '38%', rotate: '5deg' },
+    { text: '{ scalable: true }', color: '#10b981', top: '68%', rotate: '-4deg' },
+  ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
+  const highlights = [
+    { label: 'Currently', value: 'Scrum Master @ BodhaSoft', color: '#06b6d4' },
+    { label: 'Stack', value: 'MERN + Next.js + TypeScript', color: '#8b5cf6' },
+    { label: 'Focus', value: 'Scalable Web Apps', color: '#10b981' },
+    { label: 'Based in', value: 'Bhopal, India', color: '#f59e0b' },
+  ];
 
   return (
-    <div id='about' className="min-h-screen bg-black text-white py-16 px-4 sm:px-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
+    <div
+      id='about'
+      className="min-h-screen text-white py-20 px-4 sm:px-8 relative overflow-hidden"
+      style={{ background: '#080808' }}
+    >
+      {/* Dot grid */}
+      <div style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
+        backgroundSize: '24px 24px',
+      }} />
+
+      {/* Ruled lines */}
+      <div style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: 'repeating-linear-gradient(transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px)',
+      }} />
+
+      {/* Right margin sticky notes — desktop */}
+      <div className="hidden xl:block">
+        {sideNotes.map((note, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 + i * 0.15, duration: 0.4 }}
+            style={{
+              position: 'absolute',
+              right: '2%',
+              top: note.top,
+              transform: `rotate(${note.rotate})`,
+              fontFamily: "'Courier New', monospace",
+              fontSize: '0.65rem',
+              color: note.color,
+              background: `${note.color}08`,
+              border: `1px solid ${note.color}25`,
+              borderLeft: `2px solid ${note.color}50`,
+              padding: '5px 12px',
+              borderRadius: 2,
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+              zIndex: 1,
+            }}
+          >
+            {note.text}
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
+
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
+          transition={{ duration: 0.5 }}
+          className="mb-16 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-3">
-            About <span className="text-cyan-400">Me</span>
+          <div className="inline-block mb-4">
+            <div style={{
+              background: 'rgba(6,182,212,0.08)',
+              border: '1px solid rgba(6,182,212,0.2)',
+              padding: '3px 18px',
+              fontFamily: "'Courier New', monospace",
+              fontSize: '0.7rem',
+              color: '#06b6d4',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+            }}>
+              Who am I
+            </div>
+          </div>
+
+          <h2
+            style={{ fontFamily: "'Georgia', serif", fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', fontWeight: 900, lineHeight: 1 }}
+            className="mb-2"
+          >
+            About <span style={{ color: '#06b6d4', fontStyle: 'italic' }}>Me</span>
           </h2>
-          <p className="text-gray-400">
-            Get to know more about my journey and expertise
+          <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.72rem', color: '#4b5563', marginTop: 10 }}>
+             professional developer · project lead · lifelong learner
           </p>
         </motion.div>
 
-        {/* Main Content */}
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
-          {/* Left - 3D Model */}
+        {/* Main Grid */}
+        <div className="grid lg:grid-cols-2 gap-16 items-start mb-16">
+
+          {/* Left — Identity card + highlights */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center justify-center"
+            transition={{ duration: 0.5 }}
           >
-            <div className="relative">
-              <canvas
-                ref={canvasRef}
-                className="w-full max-w-md"
-              />
-              <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black pointer-events-none"></div>
+            {/* Name card — polaroid style */}
+            <motion.div
+              whileHover={{ rotate: '0deg', scale: 1.02 }}
+              style={{
+                transform: 'rotate(-1.5deg)',
+                background: 'linear-gradient(145deg, #131313, #0e0e0e)',
+                border: '1px solid rgba(255,255,255,0.07)',
+                borderTop: '3px solid #06b6d4',
+                borderRadius: 3,
+                padding: '24px',
+                marginBottom: 24,
+                position: 'relative',
+                boxShadow: '5px 5px 24px rgba(0,0,0,0.5)',
+              }}
+            >
+              {/* Tape */}
+              <div style={{
+                position: 'absolute', top: -10, left: 28,
+                width: 52, height: 16,
+                background: 'rgba(255,255,240,0.1)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 2,
+                transform: 'rotate(-5deg)',
+              }} />
+
+              {/* Top color glow */}
+              <div style={{
+                position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+                background: 'linear-gradient(90deg, #06b6d4, transparent)',
+                opacity: 0.5,
+              }} />
+
+              {/* Avatar placeholder — initials */}
+              <div style={{
+                width: 64, height: 64,
+                borderRadius: 4,
+                background: 'rgba(6,182,212,0.1)',
+                border: '1px solid rgba(6,182,212,0.25)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: "'Georgia', serif",
+                fontSize: '1.6rem',
+                fontWeight: 800,
+                color: '#06b6d4',
+                marginBottom: 16,
+                boxShadow: '0 0 16px rgba(6,182,212,0.1)',
+              }}>
+                AS
+              </div>
+
+              <h3 style={{
+                fontFamily: "'Georgia', serif",
+                fontSize: '1.8rem',
+                fontWeight: 800,
+                color: '#f0f0f0',
+                marginBottom: 4,
+              }}>
+                Aashirwad Singh
+              </h3>
+              <p style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.72rem',
+                color: '#06b6d4',
+                letterSpacing: '0.1em',
+                marginBottom: 16,
+              }}>
+                Full Stack Developer & Project Lead
+              </p>
+
+              <div style={{ borderTop: '1px dashed rgba(255,255,255,0.07)', paddingTop: 14 }}>
+                {highlights.map((h, i) => (
+                  <div key={i} style={{
+                    display: 'flex', gap: 10, alignItems: 'baseline',
+                    marginBottom: 8,
+                  }}>
+                    <span style={{
+                      fontFamily: "'Courier New', monospace",
+                      fontSize: '0.6rem',
+                      color: h.color,
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      minWidth: 70,
+                      opacity: 0.8,
+                    }}>
+                      {h.label}
+                    </span>
+                    <span style={{
+                      fontFamily: "'Courier New', monospace",
+                      fontSize: '0.7rem',
+                      color: '#9ca3af',
+                    }}>
+                      → {h.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Stats — scattered sticky notes */}
+            <div className="flex gap-4 flex-wrap">
+              {stats.map((stat, i) => {
+                const Icon = stat.icon;
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    whileHover={{ rotate: '0deg', scale: 1.07, zIndex: 10 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.4 }}
+                    style={{
+                      transform: `rotate(${stat.rotate})`,
+                      flex: 1,
+                      minWidth: 80,
+                      background: 'linear-gradient(145deg, #111, #0d0d0d)',
+                      border: `1px solid rgba(255,255,255,0.07)`,
+                      borderTop: `3px solid ${stat.color}`,
+                      borderRadius: 3,
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      boxShadow: '4px 4px 16px rgba(0,0,0,0.5)',
+                      position: 'relative',
+                      cursor: 'default',
+                    }}
+                  >
+                    <div style={{
+                      position: 'absolute', top: -8, left: '50%',
+                      transform: 'translateX(-50%) rotate(-3deg)',
+                      width: 34, height: 12,
+                      background: 'rgba(255,255,240,0.09)',
+                      border: '1px solid rgba(255,255,255,0.07)',
+                      borderRadius: 2,
+                    }} />
+                    <Icon style={{ color: stat.color, fontSize: '1.1rem', margin: '0 auto 8px' }} />
+                    <div style={{
+                      fontFamily: "'Georgia', serif",
+                      fontSize: '1.5rem',
+                      fontWeight: 900,
+                      color: stat.color,
+                      lineHeight: 1,
+                      marginBottom: 4,
+                    }}>
+                      {stat.value}
+                    </div>
+                    <div style={{
+                      fontFamily: "'Courier New', monospace",
+                      fontSize: '0.58rem',
+                      color: '#4b5563',
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
+                    }}>
+                      {stat.label}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
 
-          {/* Right - Content */}
+          {/* Right — About paragraphs as notebook entries */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-col justify-center"
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h3 className="text-3xl font-bold mb-4">
-              Hi, My name is <span className="bg-linear-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Aashirwad Singh</span>
-            </h3>
-            <p className="text-gray-400 mb-4 leading-relaxed">
-              A passionate Full Stack Developer specializing in building exceptional digital experiences. 
-              I combine clean code with elegant design to create applications that not only work flawlessly 
-              but also delight users.
-            </p>
-            <p className="text-gray-400 mb-4 leading-relaxed">
-              With expertise in modern web technologies, 
-              I have successfully delivered 5+ projects ranging from dynamic web applications to 
-              complex full-stack solutions.
-            </p>
-            <p className="text-gray-400 mb-6 leading-relaxed">
-              Currently working as a Project Manager at BodhaSoft, I lead teams in building innovative 
-              solutions while continuously learning and exploring new technologies.
-            </p>
+            {/* Entry 01 */}
+            <motion.div
+              whileHover={{ x: 4 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              style={{ marginBottom: 20, position: 'relative' }}
+            >
+              <div style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.58rem',
+                color: '#06b6d4',
+                letterSpacing: '0.2em',
+                marginBottom: 8,
+                opacity: 0.7,
+              }}>
+                ENTRY 01 —
+              </div>
+              <div style={{
+                background: 'linear-gradient(145deg, #111, #0d0d0d)',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderLeft: '2px solid #06b6d4',
+                borderRadius: '0 3px 3px 0',
+                padding: '16px 18px',
+                boxShadow: '3px 3px 14px rgba(0,0,0,0.4)',
+              }}>
+                <p style={{
+                  fontFamily: "'Georgia', serif",
+                  fontSize: '0.92rem',
+                  color: '#9ca3af',
+                  lineHeight: 1.85,
+                  fontStyle: 'italic',
+                }}>
+                  I'm a passionate developer specializing in building scalable web applications with clean, maintainable code. With a strong foundation in both frontend and backend technologies, I create solutions that are not only technically sound but also user-centric.
+                </p>
+              </div>
+            </motion.div>
 
-            {/* CTA Buttons */}
-            <div className="flex gap-4">
-                <motion.a
-    href="/Resume.pdf" // public folder me rakha hua file path
-    download="Aashirwad_Resume.pdf" // file download name
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    className="px-6 py-3 bg-linear-to-r from-cyan-500 to-blue-500 rounded-lg font-semibold text-white"
-  >
-    Download CV
-  </motion.a>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 border border-gray-700 rounded-lg font-semibold"
-              >
-              <a href="#footer">Contact Me</a>  
-              </motion.button>
-            </div>
+            {/* Entry 02 */}
+            <motion.div
+              whileHover={{ x: 4 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              style={{ marginBottom: 20, position: 'relative' }}
+            >
+              <div style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.58rem',
+                color: '#8b5cf6',
+                letterSpacing: '0.2em',
+                marginBottom: 8,
+                opacity: 0.7,
+              }}>
+                ENTRY 02 —
+              </div>
+              <div style={{
+                background: 'linear-gradient(145deg, #111, #0d0d0d)',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderLeft: '2px solid #8b5cf6',
+                borderRadius: '0 3px 3px 0',
+                padding: '16px 18px',
+                boxShadow: '3px 3px 14px rgba(0,0,0,0.4)',
+              }}>
+                <p style={{
+                  fontFamily: "'Georgia', serif",
+                  fontSize: '0.92rem',
+                  color: '#9ca3af',
+                  lineHeight: 1.85,
+                  fontStyle: 'italic',
+                }}>
+                  Currently leading development at BodhaSoft as a Scrum Master — overseeing project delivery, team coordination, and technical implementation of complex features across the MERN stack.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Entry 03 */}
+            <motion.div
+              whileHover={{ x: 4 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              style={{ marginBottom: 32, position: 'relative' }}
+            >
+              <div style={{
+                fontFamily: "'Courier New', monospace",
+                fontSize: '0.58rem',
+                color: '#10b981',
+                letterSpacing: '0.2em',
+                marginBottom: 8,
+                opacity: 0.7,
+              }}>
+                ENTRY 03 —
+              </div>
+              <div style={{
+                background: 'linear-gradient(145deg, #111, #0d0d0d)',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderLeft: '2px solid #10b981',
+                borderRadius: '0 3px 3px 0',
+                padding: '16px 18px',
+                boxShadow: '3px 3px 14px rgba(0,0,0,0.4)',
+              }}>
+                <p style={{
+                  fontFamily: "'Georgia', serif",
+                  fontSize: '0.92rem',
+                  color: '#9ca3af',
+                  lineHeight: 1.85,
+                  fontStyle: 'italic',
+                }}>
+                  My approach combines strategic thinking with hands-on development — ensuring projects are delivered on time while maintaining code quality, best practices, and a great developer experience.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.4 }}
+              style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}
+            >
+              <a href="/Resume.pdf" download="Aashirwad_Singh_Resume.pdf">
+                <motion.button
+                  whileHover={{ scale: 1.04, rotate: '-0.5deg' }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 8,
+                    padding: '10px 24px',
+                    background: '#06b6d4',
+                    border: 'none',
+                    borderRadius: 3,
+                    fontFamily: "'Courier New', monospace",
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    color: '#000',
+                    cursor: 'pointer',
+                    letterSpacing: '0.08em',
+                    boxShadow: '3px 3px 0 rgba(6,182,212,0.3)',
+                  }}
+                >
+                  Download CV
+                  <FaArrowRight size={12} />
+                </motion.button>
+              </a>
+
+              <a href="#contact">
+                <motion.button
+                  whileHover={{ scale: 1.04, rotate: '0.5deg' }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{
+                    padding: '10px 24px',
+                    background: 'transparent',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: 3,
+                    fontFamily: "'Courier New', monospace",
+                    fontSize: '0.75rem',
+                    color: '#9ca3af',
+                    cursor: 'pointer',
+                    letterSpacing: '0.08em',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLButtonElement).style.borderColor = '#06b6d4';
+                    (e.currentTarget as HTMLButtonElement).style.color = '#06b6d4';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.1)';
+                    (e.currentTarget as HTMLButtonElement).style.color = '#9ca3af';
+                  }}
+                >
+                  Get In Touch →
+                </motion.button>
+              </a>
+            </motion.div>
           </motion.div>
         </div>
-
-        {/* Stats */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
-        >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="bg-gray-900 border border-gray-800 rounded-lg p-6 text-center"
-            >
-              <stat.icon className="text-3xl text-cyan-400 mx-auto mb-3" />
-              <h4 className="text-2xl font-bold mb-1">{stat.value}</h4>
-              <p className="text-sm text-gray-400">{stat.label}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-       
       </div>
+
+      {/* Footer note */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        style={{
+          textAlign: 'center',
+          fontFamily: "'Courier New', monospace",
+          fontSize: '0.68rem',
+          color: '#1f2937',
+          letterSpacing: '0.15em',
+          position: 'relative', zIndex: 10,
+        }}
+      >
+         still writing the story —
+      </motion.p>
     </div>
   );
 };
