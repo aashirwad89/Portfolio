@@ -98,13 +98,13 @@ const Participation = () => {
 
   const participations = [
     {
-      title: 'Smart India Hackathon 2025',
-      subtitle: 'Internal Hackathon',
-      description: 'Cracked the internal round and qualified for SIH 2025 nationals.',
+      title: 'TIC Hackathon 2026',
+      subtitle: 'Technocrates Institute of Technology, Bhopal',
+      description: 'Participated into the 36 hours long hackathon and secured a position in the top 10 teams under innovation category.',
       icon: FaTrophy,
       color: '#fbbf24',
       status: 'Qualified',
-      year: '2025',
+      year: '2026',
       rotate: '-2deg',
       tape: 'left',
     },

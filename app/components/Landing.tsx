@@ -261,9 +261,9 @@ const Landing = () => {
             fontStyle: 'italic',
           }}>
             I craft beautiful, performant web applications with clean code & thoughtful design — specializing in{' '}
-            <span style={{ color: '#06b6d4', fontStyle: 'normal', fontWeight: 700 }}>React</span>,{' '}
-            <span style={{ color: '#8b5cf6', fontStyle: 'normal', fontWeight: 700 }}>Node.js</span>, and{' '}
-            <span style={{ color: '#ec4899', fontStyle: 'normal', fontWeight: 700 }}>Modern Web Tech</span>.
+            <span style={{ color: '#06b6d4', fontStyle: 'normal', fontWeight: 700 }}>MERN</span>{' '}
+            <span style={{ color: '#8b5cf6', fontStyle: 'normal', fontWeight: 700 }}>Stack , </span> and{' '}
+            <span style={{ color: '#ec4899', fontStyle: 'normal', fontWeight: 700 }}>TypeScript</span>.
           </p>
         </motion.div>
 
@@ -449,7 +449,7 @@ const Landing = () => {
       >
         {[
           { value: '1+', label: 'Years Exp', color: '#06b6d4', rotate: '-2deg' },
-          { value: '15+', label: 'Projects', color: '#8b5cf6', rotate: '1.5deg' },
+          { value: '5+', label: 'Projects', color: '#8b5cf6', rotate: '1.5deg' },
           { value: '100%', label: 'Dedication', color: '#f59e0b', rotate: '-1deg' },
         ].map((stat, i) => (
           <motion.div

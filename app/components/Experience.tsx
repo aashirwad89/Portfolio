@@ -8,10 +8,10 @@ const Experience = () => {
     {
       role: 'Scrum Master & Technical Lead',
       company: 'BodhaSoft',
-      duration: '4 Months',
-      period: 'Oct 2025 - Present',
+      duration: '5 Months',
+      period: 'Oct 2025 - Feb 2026',
       location: 'Remote',
-      type: 'Current Position',
+      type: 'Part time',
       description: [
         'Leading and managing multiple development projects from conception to deployment',
         'Coordinating cross-functional teams and ensuring timely project delivery',
@@ -25,12 +25,12 @@ const Experience = () => {
       stamp: 'ACTIVE',
     },
     {
-      role: 'MERN Stack Tutor',
+      role: 'Full Stack Tutor',
       company: 'BodhaSoft',
       duration: '1 Month',
-      period: 'Sep 2025 - Oct 2025',
+      period: 'Feb 2025 - Present',
       location: 'Remote',
-      type: 'Internship',
+      type: 'Current',
       description: [
         'Taught MERN stack development to students and professionals',
         'Created comprehensive learning materials and code examples',
