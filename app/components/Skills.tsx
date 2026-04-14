@@ -30,7 +30,7 @@ const Skills = () => {
     { name: 'Express.js', icon: SiExpress, level: 85, color: '#000000', category: 'Backend', size: 'medium' },
     { name: 'Firebase', icon: FaFire, level: 80, color: '#FFCA28', category: 'Backend', size: 'medium' },
     { name: 'Socket.IO', icon: SiSocketdotio, level: 70, color: '#010101', category: 'Backend', size: 'small', tag: 'Intermediate' },
-    { name: 'WebRTC', icon: SiWebrtc, level: 70, color: '#333333', category: 'Backend', size: 'small', tag: 'Intermediate' },
+    { name: 'WebRTC', icon: SiWebrtc, level: 60, color: '#333333', category: 'Backend', size: 'small', tag: 'Intermediate' },
     
     // Management
     { name: 'Leadership', icon: FaUsers, level: 90, color: '#EC4899', category: 'Management', size: 'medium' },
@@ -39,7 +39,7 @@ const Skills = () => {
     { name: 'Scrum', icon: FaTasks, level: 82, color: '#FF6B6B', category: 'Management', size: 'small' },
     
     // Learning
-    { name: 'Java', icon: FaJava, level: 50, color: '#007396', category: 'Learning', size: 'small', tag: 'Learning' }
+    { name: 'Java', icon: FaJava, level: 65, color: '#007396', category: 'Learning', size: 'small', tag: 'Learning' }
   ];
 
   const getCardClasses = (size: string) => {
