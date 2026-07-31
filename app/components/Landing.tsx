@@ -1,544 +1,658 @@
 /* eslint-disable react/no-unescaped-entities */
-"use client"
-import { useState } from 'react';
-import { Download, Github, Linkedin, Mail, ChevronDown, X, Menu, Code2 } from 'lucide-react';
-import { motion } from 'framer-motion';
+"use client";
+
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Download,
+  Github,
+  Linkedin,
+  Mail,
+  ChevronDown,
+  X,
+  Menu,
+  Sparkles,
+  CheckCircle2,
+  ArrowRight,
+  Sun,
+  Moon,
+  Globe,
+  Terminal,
+} from "lucide-react";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
 
 const Landing = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<"code" | "metrics">("code");
+  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [manualTheme, setManualTheme] = useState<"auto" | "light" | "dark">("auto");
+  const [isScrolledDark, setIsScrolledDark] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
-  const navLinks = ['Home', 'About', 'Experience', 'Skills', 'Projects'];
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const tags = ['React', 'Node.js', 'MongoDB', 'TypeScript', 'Next.js', 'Express', 'Tailwind', 'Firebase'];
+  // Framer motion scroll binding for smooth dark transition as user scrolls to bottom of Landing
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
 
-  const floatingNotes = [
-    { text: '// building things', color: '#06b6d4', rotate: '-8deg', top: '12%', left: '72%', delay: 0 },
-    { text: '> git push origin main', color: '#8b5cf6', rotate: '5deg', top: '62%', left: '68%', delay: 0.15 },
-    { text: '{ passion: true }', color: '#10b981', rotate: '-4deg', top: '78%', left: '78%', delay: 0.25 },
-    { text: 'npm run dev', color: '#f59e0b', rotate: '7deg', top: '28%', left: '80%', delay: 0.1 },
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 20,
+    restDelta: 0.001,
+  });
+
+  // Smooth dark fade layer opacity
+  const bgGradientOpacity = useTransform(smoothProgress, [0.35, 0.85], [0, 1]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Toggle scroll to top button visibility only when scrolled down
+      if (window.scrollY > 350) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+
+      // Check if user scrolled down near the experience section
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        if (rect.bottom < window.innerHeight * 0.5) {
+          setIsScrolledDark(true);
+        } else {
+          setIsScrolledDark(false);
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const effectiveTheme = manualTheme === "auto" ? (isScrolledDark ? "dark" : "light") : manualTheme;
+  const isDark = effectiveTheme === "dark";
+
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "Experience", href: "#experience" },
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#projects" },
   ];
 
+  const techStack = [
+    "React",
+    "TypeScript",
+    "Node.js",
+    "Next.js",
+    "MongoDB",
+    "Express",
+    "Tailwind CSS",
+    "Firebase",
+  ];
+
+  const stats = [
+    { value: "1+", label: "Years Experience" },
+    { value: "5+", label: "Projects Completed" },
+    { value: "100%", label: "Client Satisfaction" },
+  ];
+
+  const copyEmailToClipboard = () => {
+    navigator.clipboard.writeText("aashirwad2626@gmail.com");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
+
   return (
-    <div id='home' className="min-h-screen text-white overflow-hidden relative" style={{ background: '#080808' }}>
-
-      {/* Dot grid */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
-        backgroundSize: '24px 24px',
-      }} />
-
-      {/* Ruled lines */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'repeating-linear-gradient(transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px)',
-      }} />
-
-      {/* Left margin line */}
-      <div style={{
-        position: 'absolute', top: 0, bottom: 0, left: '5%', width: 1,
-        background: 'rgba(239,68,68,0.15)', pointerEvents: 'none',
-      }} />
-
-      {/* Floating sticky notes — desktop only */}
-      <div className="hidden lg:block">
-        {floatingNotes.map((note, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: note.delay + 0.8, duration: 0.5 }}
-            style={{
-              position: 'absolute',
-              top: note.top,
-              left: note.left,
-              transform: `rotate(${note.rotate})`,
-              fontFamily: "'Courier New', monospace",
-              fontSize: '0.68rem',
-              color: note.color,
-              background: `${note.color}08`,
-              border: `1px solid ${note.color}25`,
-              borderLeft: `2px solid ${note.color}60`,
-              padding: '6px 12px',
-              borderRadius: 2,
-              whiteSpace: 'nowrap',
-              pointerEvents: 'none',
-              zIndex: 1,
-            }}
-          >
-            {note.text}
-          </motion.div>
-        ))}
+    <div
+      ref={containerRef}
+      id="home"
+      className="relative min-h-screen transition-colors duration-700 overflow-hidden font-sans"
+      style={{
+        backgroundColor: isDark ? "#080808" : "#ffffff",
+      }}
+    >
+      {/* Ambient background glows */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div
+          className={`absolute -top-32 -left-32 w-96 h-96 rounded-full blur-3xl transition-opacity duration-1000 ${
+            isDark ? "bg-cyan-900/15 opacity-40" : "bg-cyan-100/70 opacity-80"
+          }`}
+        />
+        <div
+          className={`absolute top-1/3 -right-32 w-96 h-96 rounded-full blur-3xl transition-opacity duration-1000 ${
+            isDark ? "bg-indigo-900/15 opacity-40" : "bg-indigo-100/70 opacity-80"
+          }`}
+        />
+        {/* Subtle grid background */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: isDark
+              ? "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)"
+              : "radial-gradient(circle, rgba(15,23,42,0.05) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
       </div>
 
-      {/* Nav */}
-      <nav className="relative z-20 flex justify-between items-center px-4 md:px-10 py-5"
-        style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}
+      {/* Smooth Scroll Darkness Fade Layer */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none z-1 bg-[#080808]"
+        style={{ opacity: bgGradientOpacity }}
+      />
+
+      {/* NAVBAR */}
+      <nav
+        className={`sticky top-0 z-50 transition-all duration-300 backdrop-blur-xl border-b ${
+          isDark
+            ? "bg-[#080808]/85 border-white/10 text-white"
+            : "bg-white/90 border-slate-200 text-slate-900 shadow-xs"
+        }`}
       >
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4 }}
-          style={{
-            fontFamily: "'Georgia', serif",
-            fontSize: '1.3rem',
-            fontWeight: 800,
-            letterSpacing: '0.02em',
-          }}
-        >
-          {'<'}<span style={{ color: '#06b6d4', fontStyle: 'italic' }}>AS</span>{' />'}
-        </motion.div>
-
-        {/* Desktop nav */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="hidden lg:flex gap-8"
-        >
-          {navLinks.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: '0.78rem',
-                color: '#6b7280',
-                textDecoration: 'none',
-                letterSpacing: '0.05em',
-                transition: 'color 0.2s',
-                position: 'relative',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#06b6d4')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#6b7280')}
-            >
-              {item}
-            </a>
-          ))}
-        </motion.div>
-
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden text-gray-400 hover:text-white transition-colors"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="fixed inset-0 bg-black/97 z-50 flex flex-col items-center justify-center gap-10"
-            style={{
-              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)',
-              backgroundSize: '24px 24px',
-            }}
-          >
-            <button onClick={() => setMobileMenuOpen(false)} className="absolute top-6 right-6 text-gray-500">
-              <X className="w-5 h-5" />
-            </button>
-            {navLinks.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                onClick={() => setMobileMenuOpen(false)}
-                style={{
-                  fontFamily: "'Georgia', serif",
-                  fontSize: '1.8rem',
-                  fontWeight: 700,
-                  color: '#f0f0f0',
-                  textDecoration: 'none',
-                }}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+          {/* Logo */}
+          <a href="#home" className="flex items-center gap-2 font-bold tracking-tight group">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-[2px] shadow-sm shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+              <div
+                className={`w-full h-full rounded-[10px] flex items-center justify-center font-mono text-xs font-black ${
+                  isDark ? "bg-slate-950 text-cyan-400" : "bg-white text-cyan-600"
+                }`}
               >
-                {item}
+                AS
+              </div>
+            </div>
+            <span
+              className={`font-mono text-base font-extrabold tracking-wider ${
+                isDark ? "text-white" : "text-slate-900"
+              }`}
+            >
+              AASHIRWAD<span className="text-cyan-600 dark:text-cyan-400">.DEV</span>
+            </span>
+          </a>
+
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`text-sm font-medium transition-colors hover:text-cyan-600 ${
+                  isDark ? "text-slate-300 hover:text-cyan-400" : "text-slate-700"
+                }`}
+              >
+                {link.name}
               </a>
             ))}
-          </motion.div>
-        )}
+          </div>
+
+          {/* Right Action Items */}
+          <div className="flex items-center gap-3">
+            {/* Worldwide Availability Badge */}
+            <div
+              className={`hidden sm:flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border ${
+                isDark
+                  ? "bg-emerald-950/40 border-emerald-500/30 text-emerald-400"
+                  : "bg-emerald-50 border-emerald-200 text-emerald-800"
+              }`}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <Globe size={13} className="text-emerald-600 dark:text-emerald-400" />
+              <span>Available Worldwide</span>
+            </div>
+
+            {/* Theme Toggle Button */}
+            <button
+              onClick={() => {
+                if (manualTheme === "auto") {
+                  setManualTheme(isDark ? "light" : "dark");
+                } else {
+                  setManualTheme(manualTheme === "light" ? "dark" : "light");
+                }
+              }}
+              className={`p-2 rounded-xl border transition-all ${
+                isDark
+                  ? "bg-slate-900 border-slate-800 text-amber-400 hover:bg-slate-800"
+                  : "bg-white border-slate-200 text-slate-700 hover:bg-slate-100 shadow-xs"
+              }`}
+              title={`Switch to ${isDark ? "Light" : "Dark"} mode`}
+            >
+              {isDark ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
+
+            {/* Mobile Hamburger Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`md:hidden p-2 rounded-xl border transition-colors ${
+                isDark
+                  ? "bg-slate-900 border-slate-800 text-white"
+                  : "bg-white border-slate-200 text-slate-800 shadow-xs"
+              }`}
+            >
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className={`md:hidden border-b px-6 py-5 flex flex-col gap-4 ${
+                isDark
+                  ? "bg-slate-950 border-slate-800 text-white"
+                  : "bg-white border-slate-200 text-slate-900 shadow-md"
+              }`}
+            >
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm font-semibold hover:text-cyan-600 transition-colors py-1"
+                >
+                  {link.name}
+                </a>
+              ))}
+              <div className="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                  <Globe size={13} />
+                  Available Worldwide
+                </span>
+                <a
+                  href="/Resume.pdf"
+                  download="Aashirwad_Singh_Resume.pdf"
+                  className="px-3.5 py-1.5 rounded-lg bg-cyan-600 text-white font-mono text-xs font-bold"
+                >
+                  Download CV
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
-      {/* Main hero */}
-      <main className="relative z-10 px-6 md:px-12 lg:px-16 pt-16 pb-24 max-w-5xl mx-auto">
-
-        {/* Status badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-          style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 28 }}
-        >
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 8,
-            padding: '4px 14px',
-            background: 'rgba(16,185,129,0.08)',
-            border: '1px solid rgba(16,185,129,0.25)',
-            borderRadius: 2,
-            fontFamily: "'Courier New', monospace",
-            fontSize: '0.68rem',
-            color: '#10b981',
-            letterSpacing: '0.1em',
-            transform: 'rotate(-0.5deg)',
-          }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', display: 'inline-block' }}
-              className="animate-pulse" />
-            Available for opportunities
-          </div>
-        </motion.div>
-
-        {/* Name — big scrapbook headline */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          style={{ position: 'relative', marginBottom: 8 }}
-        >
-          {/* Highlight tape behind name */}
-          <div style={{
-            position: 'absolute',
-            bottom: 6, left: -4,
-            width: '60%', height: 14,
-            background: 'rgba(6,182,212,0.07)',
-            borderRadius: 2,
-            zIndex: 0,
-          }} />
-          <h1 style={{
-            fontFamily: "'Georgia', serif",
-            fontSize: 'clamp(3rem, 9vw, 7rem)',
-            fontWeight: 900,
-            lineHeight: 1,
-            position: 'relative', zIndex: 1,
-          }}>
-            Hi, I'm{' '}
-            <span style={{ color: '#06b6d4', fontStyle: 'italic' }}>Aashirwad</span>
-          </h1>
-        </motion.div>
-
-        {/* Role — stamped feel */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.4, delay: 0.55 }}
-          style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}
-        >
-          <div style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: '0.7rem',
-            color: '#06b6d4',
-            border: '1px solid rgba(6,182,212,0.35)',
-            padding: '3px 12px',
-            borderRadius: 2,
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            transform: 'rotate(-0.8deg)',
-          }}>
-            Full Stack Developer
-          </div>
-          <div style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: '0.68rem',
-            color: '#374151',
-            letterSpacing: '0.1em',
-          }}>
-            📍 Bhopal, India
-          </div>
-        </motion.div>
-
-        {/* Description — handwritten notebook style */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.65 }}
-          style={{ maxWidth: 520, marginBottom: 32 }}
-        >
-          <p style={{
-            fontFamily: "'Georgia', serif",
-            fontSize: '1.05rem',
-            color: '#9ca3af',
-            lineHeight: 1.8,
-            borderLeft: '2px solid rgba(6,182,212,0.2)',
-            paddingLeft: 16,
-            fontStyle: 'italic',
-          }}>
-            I craft beautiful, performant web applications with clean code & thoughtful design — specializing in{' '}
-            <span style={{ color: '#06b6d4', fontStyle: 'normal', fontWeight: 700 }}>MERN</span>{' '}
-            <span style={{ color: '#8b5cf6', fontStyle: 'normal', fontWeight: 700 }}>Stack , </span> and{' '}
-            <span style={{ color: '#ec4899', fontStyle: 'normal', fontWeight: 700 }}>TypeScript</span>.
-          </p>
-        </motion.div>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.75 }}
-          style={{ display: 'flex', gap: 14, flexWrap: 'wrap', marginBottom: 36 }}
-        >
-          <a href="/Resume.pdf" download="Aashirwad_Singh_Resume.pdf">
-            <motion.button
-              whileHover={{ scale: 1.04, rotate: '-0.5deg' }}
-              whileTap={{ scale: 0.97 }}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 8,
-                padding: '10px 26px',
-                background: '#06b6d4',
-                border: 'none',
-                borderRadius: 3,
-                fontFamily: "'Courier New', monospace",
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                color: '#000',
-                cursor: 'pointer',
-                letterSpacing: '0.08em',
-                boxShadow: '3px 3px 0 rgba(6,182,212,0.3)',
-                transition: 'box-shadow 0.2s',
-              }}
+      {/* HERO CONTENT */}
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-10 md:pt-16 pb-20 flex flex-col justify-center min-h-[calc(100vh-70px)]">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          
+          {/* LEFT COLUMN: HERO TEXT & CTAS */}
+          <div className="lg:col-span-7 flex flex-col items-start space-y-6">
+            
+            {/* Role Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-mono font-bold uppercase tracking-wider ${
+                isDark
+                  ? "bg-cyan-950/40 border-cyan-500/30 text-cyan-400"
+                  : "bg-cyan-50 border-cyan-200 text-cyan-800 shadow-xs"
+              }`}
             >
-              <Download size={15} />
-              Resume
-            </motion.button>
-          </a>
+              <Sparkles size={14} className="text-cyan-600 dark:text-cyan-400" />
+              <span>Full Stack Software Engineer</span>
+            </motion.div>
 
-          <a href="#projects">
-            <motion.button
-              whileHover={{ scale: 1.04, rotate: '0.5deg' }}
-              whileTap={{ scale: 0.97 }}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 8,
-                padding: '10px 26px',
-                background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: 3,
-                fontFamily: "'Courier New', monospace",
-                fontSize: '0.8rem',
-                color: '#9ca3af',
-                cursor: 'pointer',
-                letterSpacing: '0.08em',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLButtonElement).style.borderColor = '#06b6d4';
-                (e.currentTarget as HTMLButtonElement).style.color = '#06b6d4';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.12)';
-                (e.currentTarget as HTMLButtonElement).style.color = '#9ca3af';
-              }}
+            {/* Headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="space-y-2"
             >
-              View Work →
-            </motion.button>
-          </a>
-        </motion.div>
-
-        {/* Social icons */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.85 }}
-          style={{ display: 'flex', gap: 10, marginBottom: 56 }}
-        >
-          {[
-            { Icon: Github, href: 'https://github.com/aashirwad89', color: '#e5e7eb', label: 'GitHub' },
-            { Icon: Linkedin, href: 'https://linkedin.com/in/aashirwad26', color: '#0ea5e9', label: 'LinkedIn' },
-            { Icon: Mail, href: 'mailto:aashirwad2626@gmail.com', color: '#06b6d4', label: 'Email' },
-          ].map(({ Icon, href, color, label }, i) => (
-            <motion.a
-              key={i}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ y: -4, rotate: [-1, 1, 0] as unknown as number }}
-              title={label}
-              style={{
-                width: 42, height: 42,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: '#111',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: 3,
-                color: '#6b7280',
-                textDecoration: 'none',
-                boxShadow: '2px 2px 10px rgba(0,0,0,0.4)',
-                transition: 'border-color 0.2s, color 0.2s',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = color;
-                (e.currentTarget as HTMLAnchorElement).style.color = color;
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.08)';
-                (e.currentTarget as HTMLAnchorElement).style.color = '#6b7280';
-              }}
-            >
-              <Icon size={16} />
-            </motion.a>
-          ))}
-        </motion.div>
-
-        {/* Tech tags — scattered collage style */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.95 }}
-        >
-          <p style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: '0.62rem',
-            color: '#374151',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            marginBottom: 12,
-          }}>
-             stack
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-            {tags.map((tag, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1 + i * 0.05, duration: 0.3 }}
-                whileHover={{ y: -3, rotate: '0deg', scale: 1.06 }}
-                style={{
-                  fontFamily: "'Courier New', monospace",
-                  fontSize: '0.68rem',
-                  padding: '4px 12px',
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 2,
-                  color: '#6b7280',
-                  transform: `rotate(${(i % 3 === 0 ? -1 : i % 3 === 1 ? 0.8 : -0.5)}deg)`,
-                  cursor: 'default',
-                  transition: 'border-color 0.2s, color 0.2s',
-                  letterSpacing: '0.05em',
-                }}
-                onMouseEnter={e => {
-                  const colors = ['#06b6d4','#8b5cf6','#10b981','#f59e0b','#ec4899'];
-                  const c = colors[i % colors.length];
-                  (e.currentTarget as HTMLSpanElement).style.borderColor = `${c}60`;
-                  (e.currentTarget as HTMLSpanElement).style.color = c;
-                  (e.currentTarget as HTMLSpanElement).style.background = `${c}10`;
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLSpanElement).style.borderColor = 'rgba(255,255,255,0.08)';
-                  (e.currentTarget as HTMLSpanElement).style.color = '#6b7280';
-                  (e.currentTarget as HTMLSpanElement).style.background = 'rgba(255,255,255,0.04)';
-                }}
+              <h1
+                className={`text-4xl sm:text-6xl font-black tracking-tight leading-tight ${
+                  isDark ? "text-white" : "text-slate-900"
+                }`}
               >
-                {tag}
-              </motion.span>
-            ))}
+                Hi, I'm{" "}
+                <span className="bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 dark:from-cyan-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent italic">
+                  Aashirwad
+                </span>
+                .
+              </h1>
+              <p
+                className={`text-2xl sm:text-4xl font-extrabold tracking-tight leading-snug ${
+                  isDark ? "text-slate-200" : "text-slate-900"
+                }`}
+              >
+                Building Scalable, High-Performance{" "}
+                <span className="bg-gradient-to-r from-cyan-600 to-indigo-600 dark:from-cyan-400 dark:to-indigo-400 bg-clip-text text-transparent">
+                  Web Applications
+                </span>
+              </p>
+            </motion.div>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className={`text-base sm:text-lg max-w-xl leading-relaxed ${
+                isDark ? "text-slate-300 font-normal" : "text-slate-700 font-medium"
+              }`}
+            >
+              Specializing in the{" "}
+              <strong className="text-cyan-600 dark:text-cyan-400 font-bold">
+                MERN Stack
+              </strong>{" "}
+              &amp;{" "}
+              <strong className="text-indigo-600 dark:text-indigo-400 font-bold">
+                TypeScript
+              </strong>
+              . I deliver robust web solutions, clean architecture, and intuitive user experiences for clients worldwide.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-wrap items-center gap-3.5 pt-2 w-full sm:w-auto"
+            >
+              <a href="#projects" className="w-full sm:w-auto">
+                <motion.button
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full sm:w-auto px-7 py-3 rounded-xl font-mono text-sm font-bold bg-gradient-to-r from-cyan-600 via-indigo-600 to-purple-600 text-white shadow-md shadow-cyan-600/20 hover:shadow-cyan-600/35 flex items-center justify-center gap-2 group transition-all"
+                >
+                  View Work
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+              </a>
+
+              <a href="/Resume.pdf" download="Aashirwad_Singh_Resume.pdf" className="w-full sm:w-auto">
+                <motion.button
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`w-full sm:w-auto px-6 py-3 rounded-xl font-mono text-sm font-bold border flex items-center justify-center gap-2 transition-all ${
+                    isDark
+                      ? "bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800"
+                      : "bg-white border-slate-300 text-slate-900 hover:bg-slate-50 shadow-xs"
+                  }`}
+                >
+                  <Download size={16} className="text-cyan-600 dark:text-cyan-400" />
+                  Download CV
+                </motion.button>
+              </a>
+
+              <button
+                onClick={copyEmailToClipboard}
+                className={`px-4 py-3 rounded-xl font-mono text-xs font-semibold border flex items-center justify-center gap-2 transition-all ${
+                  copiedEmail
+                    ? "bg-emerald-600 text-white border-emerald-600"
+                    : isDark
+                    ? "bg-slate-900 border-slate-800 text-slate-300 hover:text-white"
+                    : "bg-slate-100 border-slate-300 text-slate-800 hover:bg-slate-200/80"
+                }`}
+                title="Click to copy email address"
+              >
+                {copiedEmail ? <CheckCircle2 size={15} /> : <Mail size={15} />}
+                {copiedEmail ? "Copied!" : "aashirwad2626@gmail.com"}
+              </button>
+            </motion.div>
+
+            {/* Social Icons Row */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex items-center gap-3 pt-2"
+            >
+              {[
+                { icon: Github, href: "https://github.com/aashirwad89", label: "GitHub" },
+                { icon: Linkedin, href: "https://linkedin.com/in/aashirwad26", label: "LinkedIn" },
+                { icon: Mail, href: "mailto:aashirwad2626@gmail.com", label: "Email" },
+              ].map((item, idx) => (
+                <motion.a
+                  key={idx}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -3, scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`p-2.5 rounded-xl border transition-all ${
+                    isDark
+                      ? "bg-slate-900 border-slate-800 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40"
+                      : "bg-white border-slate-300 text-slate-800 hover:text-cyan-700 hover:border-cyan-400 shadow-xs"
+                  }`}
+                  aria-label={item.label}
+                >
+                  <item.icon size={18} />
+                </motion.a>
+              ))}
+            </motion.div>
+
+            {/* Tech Stack Pills */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="pt-2 w-full"
+            >
+              <p
+                className={`text-xs font-mono font-bold uppercase tracking-wider mb-2.5 ${
+                  isDark ? "text-slate-400" : "text-slate-600"
+                }`}
+              >
+                Core Tech Stack
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {techStack.map((tech, i) => (
+                  <motion.span
+                    key={tech}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5 + i * 0.03 }}
+                    whileHover={{ scale: 1.05, y: -1 }}
+                    className={`px-3 py-1 rounded-lg text-xs font-mono font-semibold border transition-all cursor-default ${
+                      isDark
+                        ? "bg-slate-900 border-slate-800 text-slate-200 hover:border-cyan-500/40 hover:text-cyan-400"
+                        : "bg-slate-100 border-slate-300 text-slate-800 hover:border-cyan-500 hover:text-cyan-700 shadow-xs"
+                    }`}
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
           </div>
+
+          {/* RIGHT COLUMN: MACOS IDE SHOWCASE CARD */}
+          <div className="lg:col-span-5 flex flex-col items-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="w-full max-w-md lg:max-w-none"
+            >
+              {/* IDE Window Box */}
+              <div className="rounded-2xl border border-slate-800 bg-[#0c1017] text-slate-100 shadow-2xl overflow-hidden">
+                {/* Window Header */}
+                <div className="px-4 py-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                  </div>
+
+                  {/* Tabs */}
+                  <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+                    <button
+                      onClick={() => setActiveTab("code")}
+                      className={`px-2.5 py-0.5 rounded text-[11px] font-mono font-bold transition-all ${
+                        activeTab === "code"
+                          ? "bg-cyan-500 text-slate-950 font-black"
+                          : "text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      developer.ts
+                    </button>
+                    <button
+                      onClick={() => setActiveTab("metrics")}
+                      className={`px-2.5 py-0.5 rounded text-[11px] font-mono font-bold transition-all ${
+                        activeTab === "metrics"
+                          ? "bg-cyan-500 text-slate-950 font-black"
+                          : "text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      metrics.json
+                    </button>
+                  </div>
+
+                  <div className="text-slate-500 font-mono text-[11px] hidden sm:block">UTF-8</div>
+                </div>
+
+                {/* Code Content */}
+                <div className="p-5 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto min-h-[250px]">
+                  {activeTab === "code" ? (
+                    <pre className="text-slate-200">
+                      <code>
+                        <span className="text-purple-400">const</span>{" "}
+                        <span className="text-cyan-400">developer</span> = &#123;{"\n"}
+                        {"  "}
+                        <span className="text-slate-400">name:</span>{" "}
+                        <span className="text-emerald-400">"Aashirwad Singh"</span>,{"\n"}
+                        {"  "}
+                        <span className="text-slate-400">role:</span>{" "}
+                        <span className="text-emerald-400">"Full Stack Engineer"</span>,{"\n"}
+                        {"  "}
+                        <span className="text-slate-400">availability:</span>{" "}
+                        <span className="text-emerald-400">"Worldwide Remote"</span>,{"\n"}
+                        {"  "}
+                        <span className="text-slate-400">stack:</span> [
+                        <span className="text-amber-300">"React"</span>,{" "}
+                        <span className="text-amber-300">"Node"</span>,{" "}
+                        <span className="text-amber-300">"TS"</span>],{"\n"}
+                        {"  "}
+                        <span className="text-slate-400">status:</span>{" "}
+                        <span className="text-emerald-400">"Available for Hire 🚀"</span>
+                        {"\n"}&#125;;{"\n\n"}
+                        <span className="text-slate-500">// Clean & Scalable Codebase</span>{"\n"}
+                        <span className="text-cyan-400">console</span>.
+                        <span className="text-indigo-400">log</span>(
+                        <span className="text-emerald-400">`Let's build together!`</span>);
+                      </code>
+                    </pre>
+                  ) : (
+                    <pre className="text-slate-200">
+                      <code>
+                        &#123;{"\n"}
+                        {"  "}
+                        <span className="text-cyan-400">"experience_years"</span>:{" "}
+                        <span className="text-amber-400">1</span>,{"\n"}
+                        {"  "}
+                        <span className="text-cyan-400">"completed_projects"</span>:{" "}
+                        <span className="text-amber-400">5</span>,{"\n"}
+                        {"  "}
+                        <span className="text-cyan-400">"satisfaction_rate"</span>:{" "}
+                        <span className="text-emerald-400">"100%"</span>,{"\n"}
+                        {"  "}
+                        <span className="text-cyan-400">"availability"</span>:{" "}
+                        <span className="text-emerald-400">"Global Remote"</span>
+                        {"\n"}&#125;
+                      </code>
+                    </pre>
+                  )}
+                </div>
+
+                {/* Footer Bar */}
+                <div className="px-4 py-2 bg-slate-900 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span>TypeScript Ready</span>
+                  </div>
+                  <span>Ln 12, Col 4</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Stat Cards Below IDE */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="grid grid-cols-3 gap-3 w-full mt-4"
+            >
+              {stats.map((st, i) => (
+                <div
+                  key={i}
+                  className={`p-3 rounded-xl border text-center transition-all ${
+                    isDark
+                      ? "bg-slate-900 border-slate-800 text-white"
+                      : "bg-white border-slate-300 text-slate-900 shadow-xs"
+                  }`}
+                >
+                  <div className="text-lg sm:text-xl font-black text-cyan-600 dark:text-cyan-400 font-mono">
+                    {st.value}
+                  </div>
+                  <div className={`text-[10px] font-mono font-bold uppercase tracking-wider mt-0.5 ${
+                    isDark ? "text-slate-400" : "text-slate-600"
+                  }`}>
+                    {st.label}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="mt-12 sm:mt-16 flex flex-col items-center justify-center gap-2"
+        >
+          <a
+            href="#experience"
+            className={`flex flex-col items-center gap-2 group transition-colors ${
+              isDark ? "text-slate-400 hover:text-cyan-400" : "text-slate-600 hover:text-cyan-600"
+            }`}
+          >
+            <span className="font-mono text-xs font-bold tracking-widest uppercase">
+              Scroll to Experience
+            </span>
+            <ChevronDown size={16} className="animate-bounce text-cyan-600 dark:text-cyan-400" />
+          </a>
         </motion.div>
       </main>
 
-      {/* Stats — pinned cards bottom right */}
-      <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className="hidden lg:flex"
+      {/* Fade Gradient Bridge to Next Section */}
+      <div
+        className="w-full h-24 pointer-events-none transition-colors duration-700"
         style={{
-          position: 'absolute',
-          right: '5%',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          flexDirection: 'column',
-          gap: 16,
-          zIndex: 5,
+          background: isDark
+            ? "linear-gradient(to bottom, transparent, #080808)"
+            : "linear-gradient(to bottom, #ffffff, #080808)",
         }}
-      >
-        {[
-          { value: '1+', label: 'Years Exp', color: '#06b6d4', rotate: '-2deg' },
-          { value: '5+', label: 'Projects', color: '#8b5cf6', rotate: '1.5deg' },
-          { value: '100%', label: 'Dedication', color: '#f59e0b', rotate: '-1deg' },
-        ].map((stat, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ rotate: '0deg', scale: 1.06, zIndex: 10 }}
-            style={{
-              transform: `rotate(${stat.rotate})`,
-              background: 'linear-gradient(145deg, #131313, #0e0e0e)',
-              border: `1px solid rgba(255,255,255,0.07)`,
-              borderTop: `3px solid ${stat.color}`,
-              borderRadius: 3,
-              padding: '14px 20px',
-              textAlign: 'center',
-              boxShadow: '4px 4px 18px rgba(0,0,0,0.5)',
-              position: 'relative',
-              minWidth: 90,
-              cursor: 'default',
-            }}
+      />
+
+      {/* Scroll-to-Top Button (Only visible when scrolled down) */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.a
+            href="#home"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="fixed bottom-6 right-6 z-50"
           >
-            {/* Tape */}
-            <div style={{
-              position: 'absolute', top: -8, left: '50%',
-              transform: 'translateX(-50%) rotate(-3deg)',
-              width: 36, height: 13,
-              background: 'rgba(255,255,240,0.09)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: 2,
-            }} />
-            <div style={{
-              fontFamily: "'Georgia', serif",
-              fontSize: '1.8rem',
-              fontWeight: 900,
-              color: stat.color,
-              lineHeight: 1,
-              marginBottom: 4,
-            }}>
-              {stat.value}
-            </div>
-            <div style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: '0.6rem',
-              color: '#4b5563',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-            }}>
-              {stat.label}
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <div className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
-        style={{ fontFamily: "'Courier New', monospace", fontSize: '0.62rem', color: '#374151', letterSpacing: '0.15em' }}
-      >
-        <span>scroll</span>
-        <ChevronDown size={12} className="animate-bounce" />
-      </div>
-
-      {/* Scroll to top */}
-      <a href="#home">
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className="fixed bottom-8 right-8 z-20"
-          style={{
-            width: 42, height: 42,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            background: '#0e0e0e',
-            border: '1px solid rgba(6,182,212,0.3)',
-            borderRadius: 3,
-            color: '#06b6d4',
-            boxShadow: '0 0 14px rgba(6,182,212,0.15)',
-            cursor: 'pointer',
-          }}
-        >
-          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-          </svg>
-        </motion.button>
-      </a>
-
-      <style jsx>{`
-        html { scroll-behavior: smooth; }
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(6,182,212,0.3); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(6,182,212,0.6); }
-      `}</style>
+            <button
+              className="p-3 rounded-full bg-cyan-600 text-white font-bold shadow-lg shadow-cyan-600/30 hover:bg-cyan-500 transition-colors"
+              title="Scroll to Top"
+            >
+              <ChevronDown size={18} className="rotate-180" />
+            </button>
+          </motion.a>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
