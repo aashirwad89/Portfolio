@@ -86,13 +86,13 @@ const Skills = () => {
   return (
     <div
       id="skills"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
+      className="py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
     >
       {/* Background ambient subtle glow */}
       <div className="absolute top-1/3 -left-32 w-96 h-96 rounded-full bg-[#3D550C]/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full bg-[#606C38]/5 blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -138,7 +138,7 @@ const Skills = () => {
         {/* Skills Cards Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5"
         >
           {filteredSkills.map((skill, index) => {
             const Icon = skill.icon;

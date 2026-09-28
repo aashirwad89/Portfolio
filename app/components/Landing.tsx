@@ -15,13 +15,12 @@ import {
   ArrowRight,
   Globe,
   Phone,
-  Terminal,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import OrbitalModel3D from "./OrbitalModel3D";
 
 const Landing = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"code" | "metrics">("code");
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const navLinks = [
@@ -33,18 +32,6 @@ const Landing = () => {
     { name: "Education", href: "#education" },
   ];
 
-  const techStack = [
-    "React.js",
-    "Next.js",
-    "Node.js",
-    "Express.js",
-    "MongoDB",
-    "TypeScript",
-    "JavaScript",
-    "Java",
-    "React Native",
-    "Firebase",
-  ];
 
   const stats = [
     { value: "20+", label: "Interns Mentored" },
@@ -82,7 +69,7 @@ const Landing = () => {
 
       {/* NAVBAR */}
       <nav className="sticky top-0 z-50 bg-white/85 backdrop-blur-md border-b border-stone-200/80 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+        <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-3.5 flex items-center justify-between">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2.5 font-bold tracking-tight group">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#3D550C] to-[#606C38] p-[2px] shadow-sm shadow-[#3D550C]/20 group-hover:scale-105 transition-transform">
@@ -179,8 +166,8 @@ const Landing = () => {
       </nav>
 
       {/* HERO CONTENT */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-10 md:pt-16 pb-16 flex flex-col justify-center min-h-[calc(100vh-70px)]">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+      <main className="relative z-10 max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-10 pt-8 md:pt-14 pb-14 flex flex-col justify-center min-h-[calc(100vh-70px)]">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* LEFT COLUMN: HERO TEXT & CTAS */}
           <div className="lg:col-span-7 flex flex-col items-start space-y-6">
             {/* Role Badge */}
@@ -208,12 +195,6 @@ const Landing = () => {
                 </span>
                 .
               </h1>
-              <p className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-snug text-slate-800">
-                Building Scalable, High-Impact{" "}
-                <span className="bg-gradient-to-r from-[#3D550C] to-[#5A7328] bg-clip-text text-transparent">
-                  Web Applications
-                </span>
-              </p>
             </motion.div>
 
             {/* Description */}
@@ -221,7 +202,7 @@ const Landing = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base sm:text-lg max-w-xl leading-relaxed text-slate-600 font-normal"
+              className="text-base sm:text-lg max-w-2xl leading-relaxed text-slate-600 font-normal"
             >
               Software Developer &amp; Team Lead specializing in the{" "}
               <strong className="text-[#3D550C] font-semibold">MERN Stack</strong>,{" "}
@@ -309,151 +290,17 @@ const Landing = () => {
               </span>
             </motion.div>
 
-            {/* Tech Stack Pills */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="pt-2 w-full"
-            >
-              <p className="text-xs font-mono font-bold uppercase tracking-wider mb-2.5 text-slate-500">
-                Core Tech Stack
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {techStack.map((tech, i) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.5 + i * 0.03 }}
-                    whileHover={{ scale: 1.05, y: -1 }}
-                    className="px-3 py-1 rounded-lg text-xs font-mono font-semibold border border-stone-200 bg-white text-slate-700 hover:border-[#CEDBBA] hover:bg-[#EFF4EA] hover:text-[#3D550C] shadow-xs transition-all cursor-default"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
           </div>
 
-          {/* RIGHT COLUMN: MACOS LIGHT IDE SHOWCASE CARD */}
-          <div className="lg:col-span-5 flex flex-col items-center">
+          {/* RIGHT COLUMN: 3D ANIMATED GEOMETRIC ORBITAL MODEL */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 15 }}
+              initial={{ opacity: 0, scale: 0.9, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="w-full max-w-md lg:max-w-none"
+              className="w-full flex justify-center"
             >
-              {/* IDE Window Box */}
-              <div className="rounded-2xl border border-stone-200/90 bg-white shadow-xl shadow-stone-200/50 overflow-hidden">
-                {/* Window Header */}
-                <div className="px-4 py-3 bg-[#F8FAFC] border-b border-stone-200/80 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-400" />
-                    <div className="w-3 h-3 rounded-full bg-amber-400" />
-                    <div className="w-3 h-3 rounded-full bg-emerald-400" />
-                  </div>
-
-                  {/* Tabs */}
-                  <div className="flex items-center gap-1 bg-stone-100/80 p-1 rounded-lg border border-stone-200/60">
-                    <button
-                      onClick={() => setActiveTab("code")}
-                      className={`px-2.5 py-0.5 rounded text-[11px] font-mono font-bold transition-all ${
-                        activeTab === "code"
-                          ? "bg-white text-[#3D550C] shadow-xs"
-                          : "text-slate-500 hover:text-slate-800"
-                      }`}
-                    >
-                      developer.ts
-                    </button>
-                    <button
-                      onClick={() => setActiveTab("metrics")}
-                      className={`px-2.5 py-0.5 rounded text-[11px] font-mono font-bold transition-all ${
-                        activeTab === "metrics"
-                          ? "bg-white text-[#3D550C] shadow-xs"
-                          : "text-slate-500 hover:text-slate-800"
-                      }`}
-                    >
-                      metrics.json
-                    </button>
-                  </div>
-
-                  <div className="text-slate-400 font-mono text-[11px] hidden sm:block">
-                    UTF-8
-                  </div>
-                </div>
-
-                {/* Code Content */}
-                <div className="p-5 font-mono text-xs sm:text-sm leading-relaxed overflow-x-auto min-h-[250px] bg-[#FAFCF8]">
-                  {activeTab === "code" ? (
-                    <pre className="text-slate-800">
-                      <code>
-                        <span className="text-[#6D28D9]">const</span>{" "}
-                        <span className="text-[#0369A1]">developer</span> = &#123;{"\n"}
-                        {"  "}
-                        <span className="text-slate-500">name:</span>{" "}
-                        <span className="text-[#3D550C] font-semibold">"Aashirwad Singh"</span>,{"\n"}
-                        {"  "}
-                        <span className="text-slate-500">role:</span>{" "}
-                        <span className="text-[#3D550C] font-semibold">"Software Developer - Team Lead"</span>,{"\n"}
-                        {"  "}
-                        <span className="text-slate-500">company:</span>{" "}
-                        <span className="text-[#3D550C] font-semibold">"BodhaSoft Pvt. Ltd."</span>,{"\n"}
-                        {"  "}
-                        <span className="text-slate-500">education:</span>{" "}
-                        <span className="text-[#3D550C] font-semibold">"B.Tech CSE @ LNCT (7.71 GPA)"</span>,{"\n"}
-                        {"  "}
-                        <span className="text-slate-500">stack:</span> [
-                        <span className="text-[#B45309]">"MERN"</span>,{" "}
-                        <span className="text-[#B45309]">"Next.js"</span>,{" "}
-                        <span className="text-[#B45309]">"TypeScript"</span>],{"\n"}
-                        {"  "}
-                        <span className="text-slate-500">status:</span>{" "}
-                        <span className="text-[#047857] font-semibold">"Open to Opportunities 🚀"</span>
-                        {"\n"}&#125;;{"\n\n"}
-                        <span className="text-slate-400">// Scalable Architecture &amp; High Performance</span>{"\n"}
-                        <span className="text-[#0369A1]">console</span>.
-                        <span className="text-[#B45309]">log</span>(
-                        <span className="text-[#3D550C]">`Ready to build production-grade solutions!`</span>);
-                      </code>
-                    </pre>
-                  ) : (
-                    <pre className="text-slate-800">
-                      <code>
-                        &#123;{"\n"}
-                        {"  "}
-                        <span className="text-[#0369A1]">"mentored_interns"</span>:{" "}
-                        <span className="text-[#3D550C] font-semibold">"20+"</span>,{"\n"}
-                        {"  "}
-                        <span className="text-[#0369A1]">"release_cycle_reduction"</span>:{" "}
-                        <span className="text-[#B45309] font-semibold">"~40%"</span>,{"\n"}
-                        {"  "}
-                        <span className="text-[#0369A1]">"post_release_defect_drop"</span>:{" "}
-                        <span className="text-[#3D550C] font-semibold">"30%"</span>,{"\n"}
-                        {"  "}
-                        <span className="text-[#0369A1]">"college_gpa"</span>:{" "}
-                        <span className="text-[#B45309] font-semibold">7.71</span>,{"\n"}
-                        {"  "}
-                        <span className="text-[#0369A1]">"phone"</span>:{" "}
-                        <span className="text-[#3D550C] font-semibold">"+91 7024913839"</span>,{"\n"}
-                        {"  "}
-                        <span className="text-[#0369A1]">"email"</span>:{" "}
-                        <span className="text-[#3D550C] font-semibold">"aashirwad2626@gmail.com"</span>
-                        {"\n"}&#125;
-                      </code>
-                    </pre>
-                  )}
-                </div>
-
-                {/* Footer Bar */}
-                <div className="px-4 py-2 bg-[#F8FAFC] border-t border-stone-200/80 flex items-center justify-between text-[11px] font-mono text-slate-500">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#3D550C]" />
-                    <span className="text-[#3D550C] font-semibold">TypeScript Ready</span>
-                  </div>
-                  <span>Ln 12, Col 4</span>
-                </div>
-              </div>
+              <OrbitalModel3D />
             </motion.div>
 
             {/* Stat Cards Below IDE */}

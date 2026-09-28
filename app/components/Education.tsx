@@ -44,7 +44,7 @@ const Education = () => {
   return (
     <div
       id="education"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
+      className="py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
     >
       {/* Background Subtle Pattern */}
       <div
@@ -56,7 +56,7 @@ const Education = () => {
         }}
       />
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -84,7 +84,7 @@ const Education = () => {
         </motion.div>
 
         {/* Education Timeline Cards */}
-        <div className="space-y-6">
+        <div className="grid md:grid-cols-3 gap-6 sm:gap-7">
           {education.map((edu, index) => {
             const Icon = edu.icon;
             return (
@@ -95,43 +95,41 @@ const Education = () => {
                 viewport={{ once: true, margin: "-40px" }}
                 whileHover={{ y: -3 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-6 sm:p-7 shadow-xs hover:shadow-md hover:shadow-[#3D550C]/5 transition-all relative overflow-hidden"
+                className="bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-6 sm:p-7 shadow-xs hover:shadow-md hover:shadow-[#3D550C]/5 transition-all relative overflow-hidden flex flex-col justify-between"
               >
                 {/* Subtle top olive accent highlight */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3D550C] to-[#606C38] opacity-80" />
 
-                <div className="flex flex-col sm:flex-row items-start gap-5">
-                  {/* Icon Badge */}
-                  <div className="w-12 h-12 rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] flex items-center justify-center text-xl shrink-0 shadow-xs">
-                    <Icon />
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="flex-1 w-full">
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                      <h3
-                        style={{ fontFamily: "'Georgia', serif" }}
-                        className="text-xl font-bold text-slate-900"
-                      >
-                        {edu.degree}
-                      </h3>
-
-                      <div className="flex items-center gap-2">
+                <div className="flex flex-col items-start gap-4 h-full justify-between">
+                  <div className="w-full">
+                    {/* Top Row: Icon + Badges */}
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] flex items-center justify-center text-xl shrink-0 shadow-xs">
+                        <Icon />
+                      </div>
+                      <div className="flex flex-wrap items-center gap-1.5">
                         <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C]">
                           {edu.gpa}
                         </span>
-                        <span className="font-mono text-xs font-semibold px-2.5 py-0.5 rounded-full border border-stone-200 bg-stone-50 text-slate-600">
+                        <span className="font-mono text-[11px] font-semibold px-2 py-0.5 rounded-full border border-stone-200 bg-stone-50 text-slate-600">
                           {edu.status === "Pursuing" ? "● Pursuing" : "✓ Completed"}
                         </span>
                       </div>
                     </div>
 
-                    <p className="font-mono text-xs font-semibold text-[#3D550C] mb-3">
+                    <h3
+                      style={{ fontFamily: "'Georgia', serif" }}
+                      className="text-lg sm:text-xl font-bold text-slate-900 mb-1"
+                    >
+                      {edu.degree}
+                    </h3>
+
+                    <p className="font-mono text-xs font-semibold text-[#3D550C] mb-2.5">
                       {edu.institution} · <span className="text-slate-600 font-normal">{edu.field}</span>
                     </p>
 
                     {/* Metadata: Location & Period */}
-                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-500 mb-3.5">
+                    <div className="flex flex-wrap items-center gap-3.5 text-xs font-mono text-slate-500 mb-3.5">
                       <span className="flex items-center gap-1.5">
                         <FaMapMarkerAlt className="text-[#3D550C] opacity-75" />
                         {edu.location}
@@ -141,11 +139,11 @@ const Education = () => {
                         {edu.period}
                       </span>
                     </div>
+                  </div>
 
-                    {/* Note Box */}
-                    <div className="bg-[#FAFBF9] border border-stone-200/80 rounded-xl p-3 text-xs sm:text-[13px] text-slate-600 italic leading-relaxed">
-                      "{edu.note}"
-                    </div>
+                  {/* Note Box */}
+                  <div className="w-full bg-[#FAFBF9] border border-stone-200/80 rounded-xl p-3 text-xs text-slate-600 italic leading-relaxed">
+                    "{edu.note}"
                   </div>
                 </div>
               </motion.div>

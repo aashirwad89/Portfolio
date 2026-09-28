@@ -36,7 +36,7 @@ const Footer = () => {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-16 relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-10 py-16 relative z-10">
         {/* Main Grid */}
         <div className="grid md:grid-cols-12 gap-10 mb-12">
           {/* Brand Card (5 cols) */}

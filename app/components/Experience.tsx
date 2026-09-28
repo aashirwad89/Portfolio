@@ -99,7 +99,7 @@ const Experience = () => {
   return (
     <div
       id="experience"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#f7f9f6] text-slate-900"
+      className="py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden bg-[#f7f9f6] text-slate-900"
     >
       {/* Delicate background pattern */}
       <div
@@ -111,7 +111,7 @@ const Experience = () => {
         }}
       />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
