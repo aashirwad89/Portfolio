@@ -1,119 +1,117 @@
-"use client"
-import { FaCalendarAlt, FaMapMarkerAlt, FaCode, FaChalkboardTeacher, FaTasks, FaLaptopCode } from 'react-icons/fa';
-import { motion } from 'framer-motion';
-import { Variants } from "framer-motion";
+"use client";
+
+import {
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaCode,
+  FaChalkboardTeacher,
+  FaTasks,
+  FaLaptopCode,
+} from "react-icons/fa";
+import { motion, Variants } from "framer-motion";
 
 const Experience = () => {
   const experiences = [
     {
-      role: 'Scrum Master & Technical Lead',
-      company: 'BodhaSoft',
-      duration: '5 Months',
-      period: 'Oct 2025 - Feb 2026',
-      location: 'Remote',
-      type: 'Part time',
+      role: "Software Developer - Team Lead",
+      company: "BodhaSoft Pvt. Ltd.",
+      duration: "Apr 2026 – Present",
+      period: "Apr 2026 – Present",
+      location: "Remote",
+      type: "Part-time",
       description: [
-        'Leading and managing multiple development projects from conception to deployment',
-        'Coordinating cross-functional teams and ensuring timely project delivery',
-        'Implementing agile methodologies and sprint planning'
+        "Led and developed two full-stack products, an LMS and e-commerce platform",
+        "Managing architecture, core development, team coordination, and deployment of scalable production-ready systems",
+        "Ensuring robust code standards, system stability, and seamless deployment workflows",
       ],
-      skills: ['Project Management', 'Agile', 'Team Leadership', 'Scrum'],
+      skills: ["Architecture", "LMS", "E-Commerce", "Team Lead", "Deployment", "Scalability"],
       icon: FaTasks,
-      color: '#06b6d4',
+      color: "#3D550C",
       current: true,
-      rotate: '-1.5deg',
-      stamp: 'ACTIVE',
+      stamp: "ACTIVE",
     },
     {
-      role: 'Full Stack Tutor',
-      company: 'BodhaSoft',
-      duration: '1 Month',
-      period: 'Feb 2025 - Present',
-      location: 'Remote',
-      type: 'Current',
+      role: "MERN Stack Intern",
+      company: "Nexissparkx Technologies",
+      duration: "5 Months",
+      period: "Apr 2026 – Aug 2026",
+      location: "Remote",
+      type: "Internship",
       description: [
-        'Taught MERN stack development to students and professionals',
-        'Created comprehensive learning materials and code examples',
-        'Conducted live Zoom hands-on coding sessions and project guidance'
+        "Developed full-stack web applications using MongoDB, Express.js, React.js, and Node.js",
+        "Built responsive interfaces, RESTful APIs, and complex database integrations",
+        "Optimized application performance and streamlined data flow while collaborating with the team",
       ],
-      skills: ['MongoDB', 'Express', 'React', 'Node.js', 'Teaching', 'TypeScript'],
-      icon: FaChalkboardTeacher,
-      color: '#8b5cf6',
-      current: false,
-      rotate: '1.2deg',
-      stamp: 'DONE',
-    },
-    {
-      role: 'Full Stack Developer',
-      company: 'CareerHub',
-      duration: '3 Months',
-      period: 'July 2025 - Sep 2025',
-      location: 'Remote',
-      type: 'Full-time',
-      description: [
-        'Developed full-stack web applications with the team',
-        'Implemented responsive UI components and RESTful APIs',
-        'Optimized application interface and database queries'
-      ],
-      skills: ['React', 'Node.js', 'MongoDB', 'Express', 'TypeScript', 'Framer-Motion'],
+      skills: ["MongoDB", "Express.js", "React.js", "Node.js", "RESTful APIs", "Optimization"],
       icon: FaCode,
-      color: '#10b981',
+      color: "#4A5D23",
       current: false,
-      rotate: '-2deg',
-      stamp: 'DONE',
+      stamp: "DONE",
     },
     {
-      role: 'Freelance Developer',
-      company: 'Self-Employed',
-      duration: '5 Months',
-      period: 'Dec 2024 - Apr 2025',
-      location: 'Remote',
-      type: 'Freelance',
+      role: "Full Stack Developer",
+      company: "CareerHub",
+      duration: "3 Months",
+      period: "Jun 2025 – Aug 2025",
+      location: "Bhopal, M.P.",
+      type: "Developer",
       description: [
-        'Built custom web applications for various clients',
-        'Delivered end-to-end solutions from design to deployment',
-        'Managed client relationships and project timelines'
+        "Delivered a production-ready, animated, data-driven frontend within 3 months, increasing user engagement",
+        "Reduced feature release cycles by ~40% through reusable components and streamlined patterns",
+        "Built responsive UI with dynamic data rendering, backend service integrations, and secure authentication",
       ],
-      skills: ['React', 'Next.js', 'Node.js', 'Tailwind CSS', 'Firebase', 'TypeScript'],
+      skills: ["React.js", "Framer Motion", "REST APIs", "Authentication", "UI/UX", "Node.js"],
       icon: FaLaptopCode,
-      color: '#f59e0b',
+      color: "#606C38",
       current: false,
-      rotate: '1.8deg',
-      stamp: 'DONE',
-    }
+      stamp: "DONE",
+    },
+    {
+      role: "Scrum Master & Tech Lead",
+      company: "BodhaSoft Pvt. Ltd.",
+      duration: "5 Months",
+      period: "Oct 2025 – Feb 2026",
+      location: "Remote",
+      type: "Leadership",
+      description: [
+        "Led development of a production-ready full-stack product delivered within 5 months",
+        "Maintained weekly release cycles and reduced post-release defects by 30%",
+        "Directed sprint planning, task allocation, code reviews, and mentored 20+ interns on architecture and execution standards",
+      ],
+      skills: ["Sprint Planning", "Agile / Scrum", "Code Reviews", "Mentorship (20+ Interns)", "Architecture"],
+      icon: FaChalkboardTeacher,
+      color: "#526E2D",
+      current: false,
+      stamp: "DONE",
+    },
   ];
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
   };
 
   const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
   };
 
   return (
     <div
-      id='experience'
-      className="min-h-screen text-white py-20 px-4 sm:px-8 relative overflow-hidden"
-      style={{ background: '#080808' }}
+      id="experience"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#f7f9f6] text-slate-900 border-t border-stone-200/70"
     >
-      {/* Dot grid background */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
-        backgroundSize: '24px 24px',
-      }} />
+      {/* Delicate background pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(61, 85, 12, 0.05) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
 
-      {/* Faint diagonal lines texture */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px)',
-      }} />
-
-      <div className="max-w-5xl mx-auto relative z-10">
-
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -122,30 +120,21 @@ const Experience = () => {
           transition={{ duration: 0.5 }}
           className="mb-16 text-center"
         >
-          <div className="inline-block mb-4">
-            <div style={{
-              background: 'rgba(6,182,212,0.08)',
-              border: '1px solid rgba(6,182,212,0.2)',
-              padding: '3px 18px',
-              fontFamily: "'Courier New', monospace",
-              fontSize: '0.7rem',
-              color: '#06b6d4',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-            }}>
+          <div className="inline-block mb-3.5">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
               Professional Journey
-            </div>
+            </span>
           </div>
 
           <h2
-            style={{ fontFamily: "'Georgia', serif", fontSize: '3.5rem', fontWeight: 800, lineHeight: 1 }}
-            className="mb-2"
+            style={{ fontFamily: "'Georgia', serif" }}
+            className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-3"
           >
-            Work <span className="text-cyan-400 italic">Experience</span>
+            Work <span className="text-[#3D550C] italic">Experience</span>
           </h2>
 
-          <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.75rem', color: '#4b5563', marginTop: '10px' }}>
-             2024 - 2025 · remote · building things that matter
+          <p className="font-mono text-xs sm:text-sm text-slate-500 max-w-xl mx-auto">
+            2025 – Present · remote &amp; on-site · scalable systems, full stack &amp; tech leadership
           </p>
         </motion.div>
 
@@ -154,8 +143,8 @@ const Experience = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          className="grid md:grid-cols-2 gap-10"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid md:grid-cols-2 gap-8"
         >
           {experiences.map((exp, index) => {
             const Icon = exp.icon;
@@ -163,169 +152,89 @@ const Experience = () => {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                whileHover={{ rotate: '0deg', scale: 1.03, zIndex: 20 }}
-                style={{
-                  transform: `rotate(${exp.rotate})`,
-                  position: 'relative',
-                }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.25 }}
+                className="relative group"
               >
-                {/* Tape strip on top */}
-                <div style={{
-                  position: 'absolute',
-                  top: -10,
-                  left: index % 2 === 0 ? 28 : undefined,
-                  right: index % 2 !== 0 ? 28 : undefined,
-                  width: 56,
-                  height: 18,
-                  background: 'rgba(255,255,240,0.12)',
-                  border: '1px solid rgba(255,255,255,0.09)',
-                  borderRadius: 2,
-                  transform: index % 2 === 0 ? 'rotate(-6deg)' : 'rotate(6deg)',
-                  zIndex: 10,
-                }} />
+                {/* Executive Light Card */}
+                <div className="h-full bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-7 shadow-xs hover:shadow-lg hover:shadow-[#3D550C]/5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                  {/* Subtle top olive accent highlight */}
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3D550C] via-[#606C38] to-[#A3B18A] opacity-90" />
 
-                {/* Card */}
-                <div style={{
-                  background: 'linear-gradient(150deg, #131313, #0e0e0e)',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  borderTop: `3px solid ${exp.color}`,
-                  borderRadius: '3px',
-                  padding: '22px',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  boxShadow: `5px 5px 24px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04)`,
-                }}>
+                  {/* Card Top Section */}
+                  <div>
+                    {/* Header Row: Icon + Company + Status Badge */}
+                    <div className="flex items-start justify-between gap-4 mb-4">
+                      <div className="flex items-center gap-3.5">
+                        <div className="w-12 h-12 rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] flex items-center justify-center text-[#3D550C] shadow-xs group-hover:scale-105 transition-transform">
+                          <Icon size={20} />
+                        </div>
+                        <div>
+                          <h4 className="font-mono text-sm font-bold text-[#3D550C] tracking-wide">
+                            {exp.company}
+                          </h4>
+                          <span className="inline-block text-[11px] font-mono text-slate-500 uppercase tracking-wider">
+                            {exp.type}
+                          </span>
+                        </div>
+                      </div>
 
-                  {/* Color top glow */}
-                  <div style={{
-                    position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-                    background: `linear-gradient(90deg, ${exp.color}80, transparent)`,
-                  }} />
-
-                  {/* Torn corner bottom-right */}
-                  <div style={{
-                    position: 'absolute', bottom: 0, right: 0,
-                    width: 0, height: 0,
-                    borderStyle: 'solid',
-                    borderWidth: '0 0 32px 32px',
-                    borderColor: `transparent transparent ${exp.color}15 transparent`,
-                  }} />
-
-                  {/* STAMP */}
-                  <div style={{
-                    position: 'absolute',
-                    top: 16, right: 16,
-                    fontFamily: "'Courier New', monospace",
-                    fontSize: '0.6rem',
-                    fontWeight: 700,
-                    letterSpacing: '0.18em',
-                    color: exp.current ? '#10b981' : '#374151',
-                    border: `1px solid ${exp.current ? '#10b98150' : '#37415160'}`,
-                    padding: '2px 8px',
-                    borderRadius: '2px',
-                    transform: 'rotate(4deg)',
-                    opacity: exp.current ? 1 : 0.6,
-                    background: exp.current ? 'rgba(16,185,129,0.08)' : 'transparent',
-                  }}>
-                    {exp.current ? '● ACTIVE' : '✓ DONE'}
-                  </div>
-
-                  {/* Icon + Company */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div style={{
-                      width: 44, height: 44,
-                      borderRadius: '5px',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      background: `${exp.color}12`,
-                      border: `1px solid ${exp.color}30`,
-                      flexShrink: 0,
-                      boxShadow: `0 0 14px ${exp.color}15`,
-                    }}>
-                      <Icon style={{ color: exp.color, fontSize: '1.1rem' }} />
+                      {/* Status Stamp */}
+                      <span
+                        className={`font-mono text-[11px] font-bold px-2.5 py-1 rounded-md border tracking-wider uppercase ${
+                          exp.current
+                            ? "bg-[#EFF4EA] border-[#CEDBBA] text-[#3D550C]"
+                            : "bg-stone-50 border-stone-200 text-slate-500"
+                        }`}
+                      >
+                        {exp.current ? "● Active" : "✓ Done"}
+                      </span>
                     </div>
-                    <div>
-                      <p style={{
-                        fontFamily: "'Courier New', monospace",
-                        fontSize: '0.7rem',
-                        color: exp.color,
-                        letterSpacing: '0.1em',
-                        marginBottom: 2,
-                      }}>
-                        {exp.company}
-                      </p>
-                      <p style={{
-                        fontFamily: "'Courier New', monospace",
-                        fontSize: '0.62rem',
-                        color: '#4b5563',
-                        letterSpacing: '0.08em',
-                      }}>
-                        {exp.type}
-                      </p>
+
+                    {/* Role Title */}
+                    <h3
+                      style={{ fontFamily: "'Georgia', serif" }}
+                      className="text-xl font-bold text-slate-900 mb-2 leading-snug group-hover:text-[#3D550C] transition-colors"
+                    >
+                      {exp.role}
+                    </h3>
+
+                    {/* Timeline & Location */}
+                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-500 mb-5">
+                      <span className="flex items-center gap-1.5">
+                        <FaCalendarAlt className="text-[#3D550C] opacity-75" />
+                        {exp.period}
+                      </span>
+                      <span className="flex items-center gap-1.5">
+                        <FaMapMarkerAlt className="text-[#3D550C] opacity-75" />
+                        {exp.location}
+                      </span>
                     </div>
+
+                    {/* Dashed divider */}
+                    <div className="border-t border-dashed border-stone-200 mb-4" />
+
+                    {/* Description bullet points */}
+                    <ul className="space-y-2.5 mb-6">
+                      {exp.description.map((item, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans"
+                        >
+                          <span className="text-[#3D550C] font-bold mt-0.5 text-xs">→</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  {/* Role */}
-                  <h3 style={{
-                    fontFamily: "'Georgia', serif",
-                    fontSize: '1.15rem',
-                    fontWeight: 700,
-                    color: '#f0f0f0',
-                    marginBottom: '10px',
-                    lineHeight: 1.3,
-                  }}>
-                    {exp.role}
-                  </h3>
-
-                  {/* Meta */}
-                  <div style={{
-                    display: 'flex', flexWrap: 'wrap', gap: '12px',
-                    fontFamily: "'Courier New', monospace",
-                    fontSize: '0.68rem',
-                    color: '#4b5563',
-                    marginBottom: '14px',
-                  }}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                      <FaCalendarAlt style={{ color: exp.color, opacity: 0.7 }} />
-                      {exp.duration} · {exp.period}
-                    </span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                      <FaMapMarkerAlt style={{ color: exp.color, opacity: 0.7 }} />
-                      {exp.location}
-                    </span>
-                  </div>
-
-                  {/* Dashed divider */}
-                  <div style={{ borderTop: '1px dashed rgba(255,255,255,0.07)', marginBottom: '12px' }} />
-
-                  {/* Description */}
-                  <ul style={{ marginBottom: '14px', display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                    {exp.description.map((item, i) => (
-                      <li key={i} style={{
-                        display: 'flex', gap: '8px', alignItems: 'flex-start',
-                        fontFamily: "'Courier New', monospace",
-                        fontSize: '0.72rem',
-                        color: '#6b7280',
-                        lineHeight: 1.55,
-                      }}>
-                        <span style={{ color: exp.color, flexShrink: 0, opacity: 0.8, marginTop: 1 }}>→</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Skills */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {/* Skills Pill Tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-stone-100">
                     {exp.skills.map((skill, i) => (
-                      <span key={i} style={{
-                        fontFamily: "'Courier New', monospace",
-                        fontSize: '0.62rem',
-                        padding: '2px 9px',
-                        background: 'rgba(255,255,255,0.04)',
-                        border: '1px solid rgba(255,255,255,0.08)',
-                        borderRadius: '2px',
-                        color: '#9ca3af',
-                        letterSpacing: '0.05em',
-                      }}>
+                      <span
+                        key={i}
+                        className="font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-[#F5F7F2] border border-[#E2EADA] text-[#3D550C] hover:bg-[#EFF4EA] transition-colors"
+                      >
                         {skill}
                       </span>
                     ))}
@@ -336,22 +245,15 @@ const Experience = () => {
           })}
         </motion.div>
 
-        {/* Footer */}
+        {/* Footer note */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          style={{
-            marginTop: '48px',
-            textAlign: 'center',
-            fontFamily: "'Courier New', monospace",
-            fontSize: '0.7rem',
-            color: '#374151',
-            letterSpacing: '0.15em',
-          }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-14 text-center font-mono text-xs text-slate-500 tracking-wider"
         >
-           still writing new chapters —
+          — consistently driving engineering excellence &amp; scalable architectures —
         </motion.p>
       </div>
     </div>

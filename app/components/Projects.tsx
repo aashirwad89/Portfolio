@@ -1,10 +1,18 @@
-"use client"
-import { useEffect, useRef } from 'react';
-import { 
-  FaHotel, FaVideo, FaRobot, FaLightbulb, FaGithub,
-  FaCloudscale, FaExternalLinkAlt
-} from 'react-icons/fa';
-import { motion } from 'framer-motion';
+/* eslint-disable react/no-unescaped-entities */
+"use client";
+
+import { useEffect, useRef } from "react";
+import {
+  FaHotel,
+  FaVideo,
+  FaRobot,
+  FaLightbulb,
+  FaGithub,
+  FaExternalLinkAlt,
+  FaCodeBranch,
+  FaLaptopCode,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Projects = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -12,7 +20,7 @@ const Projects = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     canvas.width = 300;
@@ -30,71 +38,76 @@ const Projects = () => {
       ctx.save();
       ctx.translate(centerX, centerY);
 
-      const termWidth = 180;
-      const termHeight = 120;
-      const gradient = ctx.createLinearGradient(0, -termHeight/2, 0, termHeight/2);
-      gradient.addColorStop(0, 'rgba(30, 30, 30, 0.9)');
-      gradient.addColorStop(1, 'rgba(20, 20, 20, 0.9)');
+      // Light terminal window box
+      const termWidth = 190;
+      const termHeight = 125;
+      const gradient = ctx.createLinearGradient(0, -termHeight / 2, 0, termHeight / 2);
+      gradient.addColorStop(0, "#ffffff");
+      gradient.addColorStop(1, "#f8faf7");
       ctx.fillStyle = gradient;
-      ctx.fillRect(-termWidth/2, -termHeight/2, termWidth, termHeight);
-      ctx.strokeStyle = '#06b6d4';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(-termWidth/2, -termHeight/2, termWidth, termHeight);
+      ctx.fillRect(-termWidth / 2, -termHeight / 2, termWidth, termHeight);
+      ctx.strokeStyle = "#3D550C";
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(-termWidth / 2, -termHeight / 2, termWidth, termHeight);
 
-      ctx.fillStyle = 'rgba(6, 182, 212, 0.2)';
-      ctx.fillRect(-termWidth/2, -termHeight/2, termWidth, 20);
+      // Header bar
+      ctx.fillStyle = "rgba(61, 85, 12, 0.08)";
+      ctx.fillRect(-termWidth / 2, -termHeight / 2, termWidth, 22);
 
-      const buttonY = -termHeight/2 + 10;
-      [['#ef4444', 15], ['#fbbf24', 30], ['#10b981', 45]].forEach(([color, x]) => {
+      // Window dots
+      const buttonY = -termHeight / 2 + 11;
+      [
+        ["#ef4444", 15],
+        ["#f59e0b", 30],
+        ["#10b981", 45],
+      ].forEach(([color, x]) => {
         ctx.fillStyle = color as string;
         ctx.beginPath();
-        ctx.arc(-termWidth/2 + (x as number), buttonY, 4, 0, Math.PI * 2);
+        ctx.arc(-termWidth / 2 + (x as number), buttonY, 3.5, 0, Math.PI * 2);
         ctx.fill();
       });
 
-      const codeLines = ['> const project = {', '>   name: "App",', '>   tech: ["React"]', '> };'];
-      ctx.font = '12px monospace';
-      ctx.fillStyle = '#06b6d4';
-      let yOffset = -40;
+      // Terminal text lines
+      const codeLines = [
+        "> const dev = {",
+        '>   project: "DevSync",',
+        '>   stack: ["MERN"]',
+        "> };",
+      ];
+      ctx.font = "11px monospace";
+      ctx.fillStyle = "#3D550C";
+      let yOffset = -35;
       codeLines.forEach((line, i) => {
-        const chars = Math.floor((Math.sin(time + i) + 1) * line.length / 2);
-        ctx.fillText(line.substring(0, chars), -termWidth/2 + 15, yOffset);
-        yOffset += 20;
+        const chars = Math.floor(((Math.sin(time + i) + 1) * line.length) / 2);
+        ctx.fillText(line.substring(0, chars), -termWidth / 2 + 15, yOffset);
+        yOffset += 18;
       });
 
+      // Cursor
       if (Math.floor(time * 2) % 2 === 0) {
-        ctx.fillStyle = '#06b6d4';
-        ctx.fillRect(-termWidth/2 + 15 + ctx.measureText(codeLines[3]).width, yOffset - 20, 8, 14);
+        ctx.fillStyle = "#3D550C";
+        ctx.fillRect(
+          -termWidth / 2 + 15 + ctx.measureText(codeLines[3]).width + 2,
+          yOffset - 18,
+          6,
+          12
+        );
       }
 
-      const symbols = ['{ }', '< >', '( )', '[ ]', '< />'];
+      // Orbiting symbols in olive
+      const symbols = ["{ }", "< >", "( )", "[ ]", "< />"];
       symbols.forEach((symbol, i) => {
-        const angle = time + (i * Math.PI * 2 / symbols.length);
-        const radius = 100 + Math.sin(time + i) * 10;
+        const angle = time + (i * Math.PI * 2) / symbols.length;
+        const radius = 95 + Math.sin(time + i) * 8;
         const x = Math.cos(angle) * radius;
         const y = Math.sin(angle) * radius;
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(angle);
-        ctx.font = 'bold 16px monospace';
-        ctx.fillStyle = `rgba(139, 92, 246, ${0.6 + Math.sin(time + i) * 0.2})`;
-        ctx.fillText(symbol, -15, 5);
+        ctx.font = "bold 13px monospace";
+        ctx.fillStyle = `rgba(61, 85, 12, ${0.45 + Math.sin(time + i) * 0.25})`;
+        ctx.fillText(symbol, -12, 4);
         ctx.restore();
-      });
-
-      const keys = ['ctrl', 'alt', 'del'];
-      keys.forEach((key, i) => {
-        const keyY = 80 + Math.sin(time + i * 0.5) * 5;
-        const keyX = -60 + i * 50;
-        ctx.fillStyle = 'rgba(6, 182, 212, 0.1)';
-        ctx.fillRect(keyX - 20, keyY, 40, 25);
-        ctx.strokeStyle = '#06b6d4';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(keyX - 20, keyY, 40, 25);
-        ctx.font = '10px monospace';
-        ctx.fillStyle = '#06b6d4';
-        ctx.textAlign = 'center';
-        ctx.fillText(key, keyX, keyY + 16);
       });
 
       ctx.restore();
@@ -107,397 +120,210 @@ const Projects = () => {
 
   const projects = [
     {
-      title: 'WanderBook',
-      description: 'Hotel booking platform with real-time availability and owner-based feature.',
-      icon: FaHotel,
-      color: '#06b6d4',
-      tags: ['Node.js', 'MongoDB', 'ExpressJS', 'Passport'],
-      status: 'completed',
-      github: 'https://github.com/aashirwad89/',
-      live: '', // replace with real URL
-      rotate: '-2deg',
-      tape: 'top-left',
+      title: "DevSync - Version Control",
+      description:
+        "GitHub-inspired version control platform with core CLI commands (pull, push, commit, revert, init), role-based collaboration, and an AI assistant.",
+      icon: FaCodeBranch,
+      tags: ["MERN", "Yargs", "Supabase", "bcryptjs", "Vercel", "Render"],
+      status: "completed",
+      github: "https://github.com/aashirwad89/",
+      live: "https://dev-sync-phi.vercel.app/",
+      badge: "Full-Stack CLI & Web",
     },
     {
-      title: 'EchoMeet',
-      description: 'Video conferencing with screen sharing powered by WebRTC.',
+      title: "EchoMeet - Video Conferencing",
+      description:
+        "Real-time meeting platform with video calls, live chat, screen sharing, polling, meeting ID session management, and WebRTC streaming.",
       icon: FaVideo,
-      color: '#8b5cf6',
-      tags: ['WebRTC', 'Socket.IO', 'MERN'],
-      status: 'completed',
-      github: 'https://github.com/aashirwad89/',
-      live: 'https://echomeet-2-0-frontend.onrender.com/',
-      rotate: '1.5deg',
-      tape: 'top-right',
+      tags: ["MERN", "Socket.io", "WebRTC", "Render", "bcryptjs"],
+      status: "completed",
+      github: "https://github.com/aashirwad89/",
+      live: "https://echomeet-2-0-frontend.onrender.com/",
+      badge: "Real-Time WebRTC",
     },
     {
-      title: 'Tutorly-AI',
-      description: 'AI chatbot for personalized tutoring and learning assistance.',
+      title: "WanderBook - Hotel Booking",
+      description:
+        "Hotel discovery and booking platform featuring role-based owner management, user reviews, search filters, and an integrated AI assistant.",
+      icon: FaHotel,
+      tags: ["MERN", "JWT", "Passport", "bcryptjs", "Render"],
+      status: "completed",
+      github: "https://github.com/aashirwad89/",
+      live: "",
+      badge: "E-Commerce & Discovery",
+    },
+    {
+      title: "Tutorly-AI - Learning Assistant",
+      description:
+        "AI chatbot for personalized tutoring, intelligent hints, and real-time interactive learning assistance.",
       icon: FaRobot,
-      color: '#10b981',
-      tags: ['Next.js', 'Gemini API', 'ReactJs'],
-      status: 'completed',
-      github: 'https://github.com/aashirwad89/',
-      live: 'https://tutorly-aichat.vercel.app/',
-      rotate: '-1deg',
-      tape: 'top-center',
+      tags: ["Next.js", "Gemini API", "React.js", "Tailwind CSS"],
+      status: "completed",
+      github: "https://github.com/aashirwad89/",
+      live: "https://tutorly-aichat.vercel.app/",
+      badge: "Generative AI",
     },
     {
-      title: 'AdarshSetu',
-      description: 'Smart India Hackathon prototype for digital infrastructure.',
+      title: "AdarshSetu - Smart Infrastructure",
+      description:
+        "Smart India Hackathon prototype for digital public infrastructure with real-time data sync and analytics.",
       icon: FaLightbulb,
-      color: '#f59e0b',
-      tags: ['Firebase', 'MERN', 'Real time Data'],
-      status: 'completed',
-      github: 'https://github.com/aashirwad89/',
-      live: 'https://adarsh-setu.vercel.app/',
-      rotate: '2deg',
-      tape: 'top-left',
+      tags: ["Firebase", "MERN", "Real-Time Data", "SIH"],
+      status: "completed",
+      github: "https://github.com/aashirwad89/",
+      live: "https://adarsh-setu.vercel.app/",
+      badge: "SIH Innovation",
     },
     {
-      title: 'Dev-Sync',
-      description: 'Real-time developer collaboration platform — in the works.',
-      icon: FaCloudscale,
-      color: '#6366f1',
-      tags: ['Future Project'],
-      status: 'completed',
-      github: 'https://github.com/aashirwad89/',
-      live: 'https://dev-sync-phi.vercel.app/',
-      rotate: '-2.5deg',
-      tape: 'top-right',
+      title: "CareerHub Platform",
+      description:
+        "Production-ready animated frontend and integrated backend services delivering dynamic UI and accelerating release cycles by ~40%.",
+      icon: FaLaptopCode,
+      tags: ["React.js", "Node.js", "MongoDB", "Express", "Auth"],
+      status: "completed",
+      github: "https://github.com/aashirwad89/",
+      live: "",
+      badge: "Production Frontend",
     },
-    {
-      title: 'Jobbr -- ',
-      description: 'Get a job in just 7 steps',
-      icon: FaCloudscale,
-      color: '#0ea5e9',
-      tags: ['Future Project'],
-      status: 'progress',
-      github: 'https://github.com/aashirwad89/',
-      live: '',
-      rotate: '1deg',
-      tape: 'top-left',
-    }
   ];
 
-  // Tape piece positions per card
-  const tapeStyles: Record<string, React.CSSProperties> = {
-    'top-left': { top: -10, left: 20, transform: 'rotate(-8deg)' },
-    'top-right': { top: -10, right: 20, transform: 'rotate(8deg)' },
-    'top-center': { top: -10, left: '50%', transform: 'translateX(-50%) rotate(-3deg)' },
-  };
-
   return (
-    <div id='projects' className="min-h-screen bg-[#0a0a0a] text-white py-16 px-4 sm:px-8 relative overflow-hidden">
-      
-      {/* Scattered background dots / noise texture */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)',
-        backgroundSize: '28px 28px',
-        pointerEvents: 'none'
-      }} />
-
-      {/* Faint grid lines */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: 'linear-gradient(rgba(6,182,212,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.04) 1px, transparent 1px)',
-        backgroundSize: '80px 80px',
-        pointerEvents: 'none'
-      }} />
+    <div
+      id="projects"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-white text-slate-900 border-t border-stone-200/70"
+    >
+      {/* Background Subtle Mesh */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(61, 85, 12, 0.05) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header Section */}
         <div className="grid md:grid-cols-2 gap-8 mb-16 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -25 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            {/* Title styled like a torn label */}
-            <div className="inline-block relative mb-4">
-              <span style={{
-                fontFamily: "'Courier New', monospace",
-                fontSize: '0.75rem',
-                letterSpacing: '0.25em',
-                color: '#06b6d4',
-                textTransform: 'uppercase',
-                borderBottom: '1px dashed rgba(6,182,212,0.4)',
-                paddingBottom: '4px'
-              }}>
-                — Portfolio
+            <div className="inline-block mb-3.5">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+                Featured Portfolio
               </span>
             </div>
-            <h2 style={{ fontFamily: "'Georgia', serif" }} className="text-5xl md:text-6xl font-bold mb-3 leading-none">
-              My <span className="text-cyan-400 italic">Projects</span>
+            <h2
+              style={{ fontFamily: "'Georgia', serif" }}
+              className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-3"
+            >
+              My <span className="text-[#3D550C] italic">Projects</span>
             </h2>
-            <p className="text-gray-500 mt-3 text-sm" style={{ fontFamily: "'Courier New', monospace" }}>
-               Building innovative solutions with modern technologies
+            <p className="font-mono text-xs sm:text-sm text-slate-500 max-w-md">
+              Full-stack architectures, real-time collaboration engines, and production-grade applications.
             </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 25 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="flex justify-center md:justify-end"
           >
-            <canvas ref={canvasRef} className="w-full max-w-xs opacity-80" />
+            <canvas ref={canvasRef} className="w-full max-w-[280px] drop-shadow-sm" />
           </motion.div>
         </div>
 
-        {/* Collage Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30, rotate: 0 }}
-              whileInView={{ opacity: 1, y: 0, rotate: project.rotate as unknown as number }}
-              whileHover={{ 
-                rotate: '0deg', 
-                scale: 1.04, 
-                zIndex: 20,
-                boxShadow: `0 20px 60px ${project.color}30`
-              }}
-              viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.4, delay: index * 0.07 }}
-              style={{
-                transform: `rotate(${project.rotate})`,
-                position: 'relative',
-                cursor: 'pointer',
-              }}
-              className="group"
-            >
-              {/* Tape strip */}
-              <div style={{
-                position: 'absolute',
-                width: 60,
-                height: 18,
-                background: 'rgba(255,255,240,0.18)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                backdropFilter: 'blur(2px)',
-                zIndex: 10,
-                borderRadius: 2,
-                ...tapeStyles[project.tape],
-              }} />
+        {/* Projects Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7">
+          {projects.map((project, index) => {
+            const Icon = project.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.35, delay: index * 0.05 }}
+                className="group bg-[#FAFBF9] hover:bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-6 shadow-xs hover:shadow-lg hover:shadow-[#3D550C]/5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+              >
+                {/* Subtle top olive line */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3D550C] via-[#606C38] to-[#A3B18A] opacity-90" />
 
-              {/* Card */}
-              <div style={{
-                background: 'linear-gradient(145deg, #161616, #111)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderBottom: `3px solid ${project.color}50`,
-                borderRadius: '4px',
-                padding: '20px',
-                boxShadow: '4px 4px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                {/* Corner torn effect */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: 0, right: 0,
-                  width: 0, height: 0,
-                  borderStyle: 'solid',
-                  borderWidth: '0 0 28px 28px',
-                  borderColor: `transparent transparent ${project.color}20 transparent`,
-                }} />
+                <div>
+                  {/* Top Bar: Icon + Badge */}
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] flex items-center justify-center text-lg shadow-xs group-hover:scale-105 transition-transform">
+                      <Icon />
+                    </div>
 
-                {/* Subtle color bleed top */}
-                <div style={{
-                  position: 'absolute',
-                  top: 0, left: 0, right: 0,
-                  height: 2,
-                  background: `linear-gradient(90deg, transparent, ${project.color}, transparent)`,
-                  opacity: 0.6
-                }} />
-
-                {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: '6px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: `${project.color}18`,
-                    border: `1px solid ${project.color}30`,
-                    boxShadow: `0 0 12px ${project.color}20`
-                  }}>
-                    <project.icon style={{ color: project.color, fontSize: '1.2rem' }} />
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    {project.status === 'progress' && (
-                      <span style={{
-                        fontSize: '0.65rem',
-                        padding: '2px 8px',
-                        background: 'rgba(245,158,11,0.15)',
-                        color: '#fbbf24',
-                        borderRadius: '20px',
-                        border: '1px solid rgba(245,158,11,0.3)',
-                        fontFamily: "'Courier New', monospace",
-                        letterSpacing: '0.05em'
-                      }}>
-                        WIP
-                      </span>
-                    )}
-                    {project.status === 'completed' && (
-                      <span style={{
-                        fontSize: '0.65rem',
-                        padding: '2px 8px',
-                        background: 'rgba(16,185,129,0.12)',
-                        color: '#10b981',
-                        borderRadius: '20px',
-                        border: '1px solid rgba(16,185,129,0.25)',
-                        fontFamily: "'Courier New', monospace",
-                      }}>
-                        done ✓
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h3 style={{
-                  fontFamily: "'Georgia', serif",
-                  fontSize: '1.2rem',
-                  fontWeight: 700,
-                  marginBottom: '6px',
-                  color: '#f0f0f0'
-                }}>
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p style={{
-                  fontFamily: "'Courier New', monospace",
-                  fontSize: '0.75rem',
-                  color: '#6b7280',
-                  lineHeight: 1.6,
-                  minHeight: '40px',
-                  marginBottom: '14px'
-                }}>
-                  {project.description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.tags.map((tag, i) => (
-                    <span key={i} style={{
-                      fontSize: '0.65rem',
-                      padding: '2px 8px',
-                      background: 'rgba(255,255,255,0.05)',
-                      color: '#9ca3af',
-                      borderRadius: '3px',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      fontFamily: "'Courier New', monospace",
-                    }}>
-                      {tag}
+                    <span className="font-mono text-[10px] font-bold px-2.5 py-1 rounded-md bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] tracking-wider uppercase">
+                      {project.badge}
                     </span>
-                  ))}
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    style={{ fontFamily: "'Georgia', serif" }}
+                    className="text-lg font-bold text-slate-900 mb-2 group-hover:text-[#3D550C] transition-colors leading-snug"
+                  >
+                    {project.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-4 min-h-[50px] font-sans">
+                    {project.description}
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {project.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[#F5F7F2] border border-[#E2EADA] text-[#3D550C]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Dashed divider — feels like a cut line */}
-                <div style={{
-                  borderTop: '1px dashed rgba(255,255,255,0.08)',
-                  marginBottom: '12px'
-                }} />
-
-                {/* Links */}
-                <div className="flex gap-2">
+                {/* Bottom Action Links */}
+                <div className="pt-3 border-t border-stone-100 flex items-center gap-2">
                   <a
                     href={project.github}
-                    target='_blank'
+                    target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      flex: 1,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '6px',
-                      padding: '7px 12px',
-                      background: 'rgba(255,255,255,0.05)',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      borderRadius: '4px',
-                      fontSize: '0.75rem',
-                      color: '#d1d5db',
-                      textDecoration: 'none',
-                      fontFamily: "'Courier New', monospace",
-                      transition: 'all 0.2s',
-                    }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLAnchorElement).style.background = `${project.color}20`;
-                      (e.currentTarget as HTMLAnchorElement).style.borderColor = project.color;
-                      (e.currentTarget as HTMLAnchorElement).style.color = project.color;
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(255,255,255,0.05)';
-                      (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.1)';
-                      (e.currentTarget as HTMLAnchorElement).style.color = '#d1d5db';
-                    }}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg border border-stone-200 text-slate-700 hover:border-[#CEDBBA] hover:bg-[#EFF4EA] hover:text-[#3D550C] font-mono text-xs font-semibold shadow-2xs transition-all"
                   >
-                    <FaGithub style={{ fontSize: '0.9rem' }} />
-                    Code
+                    <FaGithub size={13} />
+                    <span>Code</span>
                   </a>
 
                   {project.live ? (
                     <a
                       href={project.live}
-                      target='_blank'
+                      target="_blank"
                       rel="noopener noreferrer"
-                      style={{
-                        flex: 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '6px',
-                        padding: '7px 12px',
-                        background: `${project.color}15`,
-                        border: `1px solid ${project.color}40`,
-                        borderRadius: '4px',
-                        fontSize: '0.75rem',
-                        color: project.color,
-                        textDecoration: 'none',
-                        fontFamily: "'Courier New', monospace",
-                        transition: 'all 0.2s',
-                      }}
-                      onMouseEnter={e => {
-                        (e.currentTarget as HTMLAnchorElement).style.background = `${project.color}30`;
-                      }}
-                      onMouseLeave={e => {
-                        (e.currentTarget as HTMLAnchorElement).style.background = `${project.color}15`;
-                      }}
+                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-[#3D550C] hover:bg-[#2F4307] text-white font-mono text-xs font-semibold shadow-xs transition-all"
                     >
-                      <FaExternalLinkAlt style={{ fontSize: '0.75rem' }} />
-                      Live
+                      <FaExternalLinkAlt size={10} />
+                      <span>Live Demo</span>
                     </a>
                   ) : (
-                    <div style={{
-                      flex: 1,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '6px',
-                      padding: '7px 12px',
-                      background: 'rgba(255,255,255,0.02)',
-                      border: '1px dashed rgba(255,255,255,0.07)',
-                      borderRadius: '4px',
-                      fontSize: '0.7rem',
-                      color: '#4b5563',
-                      fontFamily: "'Courier New', monospace",
-                      cursor: 'not-allowed',
-                    }}>
-                      <FaExternalLinkAlt style={{ fontSize: '0.7rem' }} />
-                      No Demo
-                    </div>
+                    <span className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg border border-dashed border-stone-200 text-slate-400 font-mono text-xs cursor-not-allowed">
+                      <span>Internal</span>
+                    </span>
                   )}
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </div>

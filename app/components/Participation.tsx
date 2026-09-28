@@ -1,7 +1,9 @@
-"use client"
-import { useEffect, useRef } from 'react';
-import { FaTrophy, FaLightbulb, FaAward, FaRocket, FaCheckCircle } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+/* eslint-disable react/no-unescaped-entities */
+"use client";
+
+import { useEffect, useRef } from "react";
+import { FaTrophy, FaLightbulb, FaAward, FaCheckCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const Participation = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -9,10 +11,10 @@ const Participation = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    canvas.width = 350;
-    canvas.height = 350;
+    canvas.width = 320;
+    canvas.height = 320;
     let animationFrameId: number;
     let rotation = 0;
 
@@ -24,68 +26,70 @@ const Participation = () => {
       ctx.save();
       ctx.translate(centerX, centerY);
 
-      const cupGradient = ctx.createLinearGradient(-40, -80, 40, 0);
-      cupGradient.addColorStop(0, '#fbbf24');
-      cupGradient.addColorStop(0.5, '#f59e0b');
-      cupGradient.addColorStop(1, '#d97706');
+      // Trophy Cup Gradient (Gold & Olive Amber)
+      const cupGradient = ctx.createLinearGradient(-35, -70, 35, 0);
+      cupGradient.addColorStop(0, "#D97706");
+      cupGradient.addColorStop(0.5, "#B45309");
+      cupGradient.addColorStop(1, "#3D550C");
 
       ctx.beginPath();
-      ctx.moveTo(-40, 0);
-      ctx.quadraticCurveTo(-45, -60, -30, -80);
-      ctx.lineTo(30, -80);
-      ctx.quadraticCurveTo(45, -60, 40, 0);
+      ctx.moveTo(-35, 0);
+      ctx.quadraticCurveTo(-40, -50, -25, -70);
+      ctx.lineTo(25, -70);
+      ctx.quadraticCurveTo(40, -50, 35, 0);
       ctx.closePath();
       ctx.fillStyle = cupGradient;
       ctx.fill();
-      ctx.strokeStyle = '#b45309';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#4A5D23";
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
+      // Handles
       ctx.beginPath();
-      ctx.arc(-40, -40, 15, Math.PI, Math.PI * 1.5);
-      ctx.strokeStyle = '#fbbf24';
-      ctx.lineWidth = 3;
+      ctx.arc(-35, -35, 12, Math.PI, Math.PI * 1.5);
+      ctx.strokeStyle = "#D97706";
+      ctx.lineWidth = 2.5;
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(40, -40, 15, Math.PI * 1.5, Math.PI * 2);
+      ctx.arc(35, -35, 12, Math.PI * 1.5, Math.PI * 2);
       ctx.stroke();
 
-      ctx.fillStyle = '#d97706';
-      ctx.fillRect(-15, 0, 30, 30);
-      ctx.fillStyle = '#78716c';
-      ctx.fillRect(-35, 30, 70, 8);
+      // Base
+      ctx.fillStyle = "#3D550C";
+      ctx.fillRect(-12, 0, 24, 25);
+      ctx.fillStyle = "#4A5D23";
+      ctx.fillRect(-28, 25, 56, 8);
 
+      // Star in Cup
       ctx.save();
-      ctx.translate(0, -40);
+      ctx.translate(0, -35);
       ctx.rotate(rotation * 2);
-      ctx.fillStyle = '#fef3c7';
+      ctx.fillStyle = "#FEF3C7";
       ctx.beginPath();
       for (let i = 0; i < 5; i++) {
         const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
-        if (i === 0) ctx.moveTo(Math.cos(angle) * 10, Math.sin(angle) * 10);
-        else ctx.lineTo(Math.cos(angle) * 10, Math.sin(angle) * 10);
+        if (i === 0) ctx.moveTo(Math.cos(angle) * 8, Math.sin(angle) * 8);
+        else ctx.lineTo(Math.cos(angle) * 8, Math.sin(angle) * 8);
       }
       ctx.closePath();
       ctx.fill();
       ctx.restore();
 
-      for (let i = 0; i < 12; i++) {
-        const angle = rotation * 1.5 + (i * Math.PI * 2) / 12;
-        const radius = 100 + Math.sin(rotation * 2 + i) * 15;
+      // Orbiting particles (Olive & Amber)
+      for (let i = 0; i < 10; i++) {
+        const angle = rotation * 1.5 + (i * Math.PI * 2) / 10;
+        const radius = 85 + Math.sin(rotation * 2 + i) * 12;
         ctx.beginPath();
-        ctx.arc(Math.cos(angle) * radius, Math.sin(angle) * radius, 3, 0, Math.PI * 2);
-        ctx.fillStyle = ['#fbbf24', '#06b6d4', '#8b5cf6', '#ec4899'][i % 4];
+        ctx.arc(Math.cos(angle) * radius, Math.sin(angle) * radius, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = ["#3D550C", "#606C38", "#D97706", "#4A5D23"][i % 4];
         ctx.fill();
       }
 
-      ctx.strokeStyle = 'rgba(251,191,36,0.2)';
-      ctx.lineWidth = 2;
+      // Orbit Rings
+      ctx.strokeStyle = "rgba(61, 85, 12, 0.15)";
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.ellipse(0, 0, 120, 50, rotation * 0.5, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.strokeStyle = 'rgba(6,182,212,0.2)';
-      ctx.beginPath();
-      ctx.ellipse(0, 0, 120, 50, -rotation * 0.5, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, 105, 45, rotation * 0.5, 0, Math.PI * 2);
       ctx.stroke();
 
       ctx.restore();
@@ -98,318 +102,171 @@ const Participation = () => {
 
   const participations = [
     {
-      title: 'TIC Hackathon 2026',
-      subtitle: 'Technocrates Institute of Technology, Bhopal',
-      description: 'Participated into the 36 hours long hackathon and secured a position in the top 10 teams under innovation category.',
+      title: "TIC Hackathon",
+      subtitle: "Technocrats Institute of Technology, Bhopal",
+      description:
+        "Participated in a 36-hour competitive hackathon and secured a prestigious position in the Top 10 teams under the Innovation category.",
       icon: FaTrophy,
-      color: '#fbbf24',
-      status: 'Qualified',
-      year: '2026',
-      rotate: '-2deg',
-      tape: 'left',
+      color: "#3D550C",
+      status: "Top 10 Finalist",
+      year: "April 2026",
     },
     {
-      title: 'Idea Hackathon',
-      subtitle: 'BGI — Bansal Group of Institutes',
-      description: 'Showcased creative solutions at an innovative idea presentation hackathon.',
+      title: "Idea Hackathon",
+      subtitle: "Issued by BIST & Sheryians Coding School",
+      description:
+        "Showcased innovative software architecture and full-stack solutions at the national idea presentation hackathon.",
       icon: FaLightbulb,
-      color: '#8b5cf6',
-      status: 'Participated',
-      year: '2025',
-      rotate: '1.5deg',
-      tape: 'right',
+      color: "#4A5D23",
+      status: "Issued & Certified",
+      year: "June 2025",
     },
     {
-      title: 'Smart India Hackathon 2024',
-      subtitle: 'Internal Hackathon',
-      description: 'Participated and qualified through the internal selection round for SIH 2024.',
+      title: "Smart India Hackathon",
+      subtitle: "Internal Selection Round — AdarshSetu",
+      description:
+        "Qualified through rigorous internal selection rounds with digital civic infrastructure solution AdarshSetu.",
       icon: FaAward,
-      color: '#06b6d4',
-      status: 'Qualified',
-      year: '2024',
-      rotate: '-1.2deg',
-      tape: 'left',
-    }
+      color: "#606C38",
+      status: "Qualified",
+      year: "2024 - 2025",
+    },
   ];
 
   const stats = [
-    { value: '3', label: 'Hackathons', color: '#fbbf24' },
-    { value: '2', label: 'Qualified', color: '#10b981' },
-    { value: 'SIH', label: '2024 & 2025', color: '#06b6d4' },
+    { value: "Top 10", label: "TIC Innovation", color: "#3D550C" },
+    { value: "Sheryians", label: "& BIST Certified", color: "#4A5D23" },
+    { value: "SIH", label: "Internal Qualified", color: "#606C38" },
   ];
 
   return (
     <div
-      id='participation'
-      className="min-h-screen text-white py-20 px-4 sm:px-8 relative overflow-hidden"
-      style={{ background: '#080808' }}
+      id="participation"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-white text-slate-900 border-t border-stone-200/70"
     >
-      {/* Dot grid */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
-        backgroundSize: '24px 24px',
-      }} />
-      {/* Diagonal lines */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.01) 40px, rgba(255,255,255,0.01) 41px)',
-      }} />
+      {/* Background Subtle Pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(61, 85, 12, 0.05) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
 
       <div className="max-w-6xl mx-auto relative z-10">
-
         {/* Header */}
-        <div className="grid md:grid-cols-2 gap-12 mb-16 items-center">
+        <div className="grid md:grid-cols-2 gap-10 mb-16 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -25 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-block mb-4">
-              <div style={{
-                background: 'rgba(251,191,36,0.08)',
-                border: '1px solid rgba(251,191,36,0.2)',
-                padding: '3px 18px',
-                fontFamily: "'Courier New', monospace",
-                fontSize: '0.7rem',
-                color: '#fbbf24',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-              }}>
-                Competitive
-              </div>
+            <div className="inline-block mb-3.5">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+                Honors &amp; Achievements
+              </span>
             </div>
 
-            <h2 style={{ fontFamily: "'Georgia', serif", fontSize: '3.2rem', fontWeight: 800, lineHeight: 1 }}
-              className="mb-3">
-              Hackathon <span className="italic" style={{ color: '#fbbf24' }}>Journey</span>
+            <h2
+              style={{ fontFamily: "'Georgia', serif" }}
+              className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-3"
+            >
+              Hackathons &amp;{" "}
+              <span className="text-[#3D550C] italic">Certifications</span>
             </h2>
 
-            <p style={{ fontFamily: "'Courier New', monospace", fontSize: '0.75rem', color: '#4b5563', marginBottom: '28px' }}>
-               competing, building & qualifying at national level
+            <p className="font-mono text-xs sm:text-sm text-slate-500 mb-6 max-w-md">
+              competitive engineering, national hackathons, and certified software milestones.
             </p>
 
-            {/* Stats — collage style sticky notes */}
-            <div className="flex gap-4 flex-wrap">
+            {/* Quick Stat Chips */}
+            <div className="flex gap-3 flex-wrap">
               {stats.map((s, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  whileHover={{ rotate: '0deg', scale: 1.06 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.4 }}
-                  style={{
-                    transform: `rotate(${[-2, 2, -1.5][i]}deg)`,
-                    background: `${s.color}10`,
-                    border: `1px solid ${s.color}30`,
-                    borderTop: `3px solid ${s.color}`,
-                    padding: '12px 18px',
-                    minWidth: 70,
-                    textAlign: 'center',
-                    borderRadius: '2px',
-                    boxShadow: '3px 3px 12px rgba(0,0,0,0.4)',
-                    position: 'relative',
-                    cursor: 'default',
-                  }}
+                  className="p-3.5 rounded-xl border border-stone-200 bg-[#FAFBF9] text-center min-w-[100px] shadow-xs"
                 >
-                  {/* tape on stat card */}
-                  <div style={{
-                    position: 'absolute', top: -8, left: '50%',
-                    transform: 'translateX(-50%) rotate(-3deg)',
-                    width: 36, height: 14,
-                    background: 'rgba(255,255,240,0.1)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    borderRadius: 2,
-                  }} />
-                  <h4 style={{
-                    fontFamily: "'Georgia', serif",
-                    fontSize: '1.6rem',
-                    fontWeight: 800,
-                    color: s.color,
-                    lineHeight: 1,
-                  }}>{s.value}</h4>
-                  <p style={{
-                    fontFamily: "'Courier New', monospace",
-                    fontSize: '0.62rem',
-                    color: '#4b5563',
-                    marginTop: 4,
-                    letterSpacing: '0.08em',
-                  }}>{s.label}</p>
-                </motion.div>
+                  <div className="font-serif text-lg font-bold text-[#3D550C]">
+                    {s.value}
+                  </div>
+                  <div className="font-mono text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+                    {s.label}
+                  </div>
+                </div>
               ))}
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 25 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className="flex justify-center"
           >
-            <canvas ref={canvasRef} className="w-full max-w-sm opacity-90" />
+            <canvas ref={canvasRef} className="w-full max-w-[280px]" />
           </motion.div>
         </div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 sm:gap-7">
           {participations.map((item, index) => {
             const Icon = item.icon;
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ rotate: '0deg', scale: 1.04, zIndex: 20 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                style={{ transform: `rotate(${item.rotate})`, position: 'relative' }}
+                viewport={{ once: true, margin: "-40px" }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.35, delay: index * 0.1 }}
+                className="bg-[#FAFBF9] hover:bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-6 shadow-xs hover:shadow-lg hover:shadow-[#3D550C]/5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
               >
-                {/* Tape */}
-                <div style={{
-                  position: 'absolute',
-                  top: -10,
-                  left: item.tape === 'left' ? 24 : undefined,
-                  right: item.tape === 'right' ? 24 : undefined,
-                  width: 52,
-                  height: 16,
-                  background: 'rgba(255,255,240,0.11)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 2,
-                  transform: item.tape === 'left' ? 'rotate(-6deg)' : 'rotate(6deg)',
-                  zIndex: 10,
-                }} />
+                {/* Subtle top olive accent highlight */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3D550C] to-[#606C38] opacity-80" />
 
-                {/* Card */}
-                <div style={{
-                  background: 'linear-gradient(150deg, #131313, #0e0e0e)',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  borderTop: `3px solid ${item.color}`,
-                  borderRadius: '3px',
-                  overflow: 'hidden',
-                  boxShadow: '5px 5px 24px rgba(0,0,0,0.55)',
-                  position: 'relative',
-                }}>
-                  {/* Glow top */}
-                  <div style={{
-                    position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-                    background: `linear-gradient(90deg, ${item.color}70, transparent)`,
-                  }} />
-
-                  {/* Torn corner */}
-                  <div style={{
-                    position: 'absolute', bottom: 0, right: 0,
-                    width: 0, height: 0,
-                    borderStyle: 'solid',
-                    borderWidth: '0 0 28px 28px',
-                    borderColor: `transparent transparent ${item.color}15 transparent`,
-                  }} />
-
-                  {/* Top section */}
-                  <div style={{ padding: '20px 20px 14px', borderBottom: '1px dashed rgba(255,255,255,0.06)' }}>
-                    <div className="flex items-start justify-between mb-3">
-                      <div style={{
-                        width: 48, height: 48,
-                        borderRadius: '5px',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        background: `${item.color}12`,
-                        border: `1px solid ${item.color}30`,
-                        boxShadow: `0 0 14px ${item.color}15`,
-                      }}>
-                        <Icon style={{ color: item.color, fontSize: '1.2rem' }} />
-                      </div>
-
-                      <div style={{ textAlign: 'right' }}>
-                        <span style={{
-                          fontFamily: "'Courier New', monospace",
-                          fontSize: '0.65rem',
-                          color: item.color,
-                          border: `1px solid ${item.color}40`,
-                          padding: '2px 8px',
-                          borderRadius: 2,
-                          letterSpacing: '0.1em',
-                        }}>
-                          {item.year}
-                        </span>
-                      </div>
+                <div>
+                  {/* Top: Icon & Year */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] flex items-center justify-center text-lg shadow-xs">
+                      <Icon />
                     </div>
 
-                    <h3 style={{
-                      fontFamily: "'Georgia', serif",
-                      fontSize: '1.05rem',
-                      fontWeight: 700,
-                      color: '#f0f0f0',
-                      marginBottom: 4,
-                      lineHeight: 1.3,
-                    }}>
-                      {item.title}
-                    </h3>
-                    <p style={{
-                      fontFamily: "'Courier New', monospace",
-                      fontSize: '0.68rem',
-                      color: '#4b5563',
-                      letterSpacing: '0.04em',
-                    }}>
-                      {item.subtitle}
-                    </p>
+                    <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-white border border-stone-200 text-slate-600">
+                      {item.year}
+                    </span>
                   </div>
 
-                  {/* Bottom section */}
-                  <div style={{ padding: '14px 20px 18px' }}>
-                    <p style={{
-                      fontFamily: "'Courier New', monospace",
-                      fontSize: '0.72rem',
-                      color: '#6b7280',
-                      lineHeight: 1.6,
-                      marginBottom: '14px',
-                    }}>
-                      {item.description}
-                    </p>
+                  {/* Title & Subtitle */}
+                  <h3
+                    style={{ fontFamily: "'Georgia', serif" }}
+                    className="text-lg font-bold text-slate-900 mb-1"
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="font-mono text-xs text-[#3D550C] font-semibold mb-3">
+                    {item.subtitle}
+                  </p>
 
-                    {/* Status */}
-                    <div className="flex items-center justify-between">
-                      <span style={{
-                        fontFamily: "'Courier New', monospace",
-                        fontSize: '0.62rem',
-                        padding: '2px 10px',
-                        borderRadius: 2,
-                        background: `${item.color}12`,
-                        color: item.color,
-                        border: `1px solid ${item.color}35`,
-                        letterSpacing: '0.1em',
-                      }}>
-                        {item.status}
-                      </span>
-                      {item.status === 'Qualified' && (
-                        <FaCheckCircle style={{ color: '#10b981', fontSize: '1rem' }} />
-                      )}
-                    </div>
-                  </div>
+                  {/* Description */}
+                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans mb-5">
+                    {item.description}
+                  </p>
+                </div>
+
+                {/* Status Bar */}
+                <div className="pt-3 border-t border-stone-100 flex items-center justify-between">
+                  <span className="font-mono text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C]">
+                    {item.status}
+                  </span>
+                  <FaCheckCircle className="text-[#3D550C] text-sm" />
                 </div>
               </motion.div>
             );
           })}
         </div>
-
-        {/* Footer line */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          style={{
-            marginTop: '48px',
-            textAlign: 'center',
-            fontFamily: "'Courier New', monospace",
-            fontSize: '0.7rem',
-            color: '#374151',
-            letterSpacing: '0.15em',
-          }}
-        >
-           more to come — the grind never stops
-        </motion.p>
       </div>
     </div>
   );

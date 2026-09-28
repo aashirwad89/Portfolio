@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
-html,body{
+html, body {
   scroll-behavior: smooth;
+  background-color: #fafaf9;
+  color: #0f172a;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+::selection {
+  background-color: #dce7ce;
+  color: #2e4008;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c2d1b7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5a7328;
 }
