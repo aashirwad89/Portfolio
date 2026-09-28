@@ -573,7 +573,7 @@ const OrbitalModel3D: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      className="relative flex flex-col items-center justify-center select-none w-full max-w-[400px] mx-auto"
+      className="relative flex flex-col items-center justify-center select-none w-full max-w-[310px] sm:max-w-[400px] mx-auto"
     >
       {/* Background Ambient Grid & Glow (like reference image) */}
       <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none -z-10">
@@ -592,7 +592,7 @@ const OrbitalModel3D: React.FC = () => {
       <div className="relative cursor-grab active:cursor-grabbing p-1 group">
         <canvas
           ref={canvasRef}
-          className="relative z-10 transition-transform duration-300 drop-shadow-sm"
+          className="relative z-10 transition-transform duration-300 drop-shadow-sm max-w-full h-auto"
         />
 
         {/* Hover Hint */}

@@ -102,7 +102,7 @@ const Projects = () => {
   return (
     <div
       id="projects"
-      className="py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden bg-white text-slate-900"
+      className="py-12 sm:py-20 px-3 sm:px-6 lg:px-10 relative overflow-hidden bg-white text-slate-900"
     >
       {/* Background Subtle Mesh */}
       <div
@@ -116,7 +116,7 @@ const Projects = () => {
 
       <div className="max-w-[1600px] w-full mx-auto relative z-10">
         {/* Header Section with Executive Project Hub on the Right */}
-        <div className="grid lg:grid-cols-12 gap-8 mb-14 items-center">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 mb-8 sm:mb-14 items-center">
           <motion.div
             initial={{ opacity: 0, x: -25 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -228,10 +228,10 @@ const Projects = () => {
           </motion.div>
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid: 2 columns on mobile */}
         <motion.div
           layout
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7"
+          className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-7"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => {
@@ -245,19 +245,19 @@ const Projects = () => {
                   exit={{ opacity: 0, scale: 0.95 }}
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.25 }}
-                  className="group bg-[#FAFBF9] hover:bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-6 shadow-xs hover:shadow-lg hover:shadow-[#3D550C]/5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+                  className="group bg-[#FAFBF9] hover:bg-white rounded-xl sm:rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-3 sm:p-6 shadow-xs hover:shadow-lg hover:shadow-[#3D550C]/5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
                 >
                   {/* Subtle top olive line */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3D550C] via-[#606C38] to-[#A3B18A] opacity-90" />
 
                   <div>
                     {/* Top Bar: Icon + Badge */}
-                    <div className="flex items-start justify-between gap-3 mb-4">
-                      <div className="w-11 h-11 rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] flex items-center justify-center text-lg shadow-xs group-hover:scale-105 transition-transform">
+                    <div className="flex items-start justify-between gap-1.5 sm:gap-3 mb-2.5 sm:mb-4">
+                      <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] flex items-center justify-center text-sm sm:text-lg shadow-xs group-hover:scale-105 transition-transform shrink-0">
                         <Icon />
                       </div>
 
-                      <span className="font-mono text-[10px] font-bold px-2.5 py-1 rounded-md bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] tracking-wider uppercase">
+                      <span className="font-mono text-[8px] sm:text-[10px] font-bold px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded sm:rounded-md bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] tracking-wider uppercase truncate max-w-[85px] sm:max-w-none">
                         {project.badge}
                       </span>
                     </div>
@@ -265,38 +265,43 @@ const Projects = () => {
                     {/* Title */}
                     <h3
                       style={{ fontFamily: "'Georgia', serif" }}
-                      className="text-lg font-bold text-slate-900 mb-2 group-hover:text-[#3D550C] transition-colors leading-snug"
+                      className="text-xs sm:text-lg font-bold text-slate-900 mb-1 sm:mb-2 group-hover:text-[#3D550C] transition-colors leading-snug line-clamp-1 sm:line-clamp-none"
                     >
                       {project.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed mb-4 min-h-[50px] font-sans">
+                    <p className="text-[10px] sm:text-[13px] text-slate-600 leading-relaxed mb-2.5 sm:mb-4 line-clamp-2 sm:line-clamp-none font-sans min-h-0 sm:min-h-[50px]">
                       {project.description}
                     </p>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-5">
-                      {project.tags.map((tag, i) => (
+                    <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-3 sm:mb-5">
+                      {project.tags.slice(0, 3).map((tag, i) => (
                         <span
                           key={i}
-                          className="font-mono text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[#F5F7F2] border border-[#E2EADA] text-[#3D550C]"
+                          className="font-mono text-[8px] sm:text-[10px] font-semibold px-1.5 py-0.5 rounded sm:rounded-md bg-[#F5F7F2] border border-[#E2EADA] text-[#3D550C]"
                         >
                           {tag}
                         </span>
                       ))}
+                      {project.tags.length > 3 && (
+                        <span className="font-mono text-[8px] sm:text-[10px] text-slate-400 px-1 py-0.5">
+                          +{project.tags.length - 3}
+                        </span>
+                      )}
                     </div>
                   </div>
 
                   {/* Bottom Action Links */}
-                  <div className="pt-3 border-t border-stone-100 flex items-center gap-2">
+                  <div className="pt-2 sm:pt-3 border-t border-stone-100 flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 sm:gap-2">
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg border border-stone-200 text-slate-700 hover:border-[#CEDBBA] hover:bg-[#EFF4EA] hover:text-[#3D550C] font-mono text-xs font-semibold shadow-2xs transition-all"
+                      className="flex-1 inline-flex items-center justify-center gap-1 py-1.5 px-2 sm:py-2 sm:px-3 rounded-lg border border-stone-200 text-slate-700 hover:border-[#CEDBBA] hover:bg-[#EFF4EA] hover:text-[#3D550C] font-mono text-[10px] sm:text-xs font-semibold shadow-2xs transition-all"
                     >
-                      <FaGithub size={13} />
+                      <FaGithub size={12} />
                       <span>Code</span>
                     </a>
 
@@ -305,13 +310,13 @@ const Projects = () => {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-[#3D550C] hover:bg-[#2F4307] text-white font-mono text-xs font-semibold shadow-xs transition-all"
+                        className="flex-1 inline-flex items-center justify-center gap-1 py-1.5 px-2 sm:py-2 sm:px-3 rounded-lg bg-[#3D550C] hover:bg-[#2F4307] text-white font-mono text-[10px] sm:text-xs font-semibold shadow-xs transition-all"
                       >
-                        <FaExternalLinkAlt size={10} />
+                        <FaExternalLinkAlt size={9} />
                         <span>Live Demo</span>
                       </a>
                     ) : (
-                      <span className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg border border-dashed border-stone-200 text-slate-400 font-mono text-xs cursor-not-allowed">
+                      <span className="flex-1 inline-flex items-center justify-center gap-1 py-1.5 px-2 sm:py-2 sm:px-3 rounded-lg border border-dashed border-stone-200 text-slate-400 font-mono text-[10px] sm:text-xs cursor-not-allowed">
                         <span>Internal</span>
                       </span>
                     )}

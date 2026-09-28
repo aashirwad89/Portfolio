@@ -166,10 +166,10 @@ const Landing = () => {
       </nav>
 
       {/* HERO CONTENT */}
-      <main className="relative z-10 max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-10 pt-8 md:pt-14 pb-14 flex flex-col justify-center min-h-[calc(100vh-70px)]">
+      <main className="relative z-10 max-w-[1600px] w-full mx-auto px-3 sm:px-6 lg:px-10 pt-6 sm:pt-10 md:pt-14 pb-10 sm:pb-14 flex flex-col justify-center min-h-[calc(100vh-70px)]">
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* LEFT COLUMN: HERO TEXT & CTAS */}
-          <div className="lg:col-span-7 flex flex-col items-start space-y-6">
+          <div className="lg:col-span-7 flex flex-col items-start space-y-4 sm:space-y-6">
             {/* Role Badge */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -188,7 +188,7 @@ const Landing = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="space-y-2"
             >
-              <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-tight text-slate-900">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight text-slate-900">
                 Hi, I'm{" "}
                 <span className="bg-gradient-to-r from-[#2F4307] via-[#4A5D23] to-[#606C38] bg-clip-text text-transparent italic">
                   Aashirwad Singh
@@ -217,16 +217,16 @@ const Landing = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-3.5 pt-2 w-full sm:w-auto"
+              className="flex flex-wrap items-center gap-2.5 sm:gap-3.5 pt-1 sm:pt-2 w-full sm:w-auto"
             >
               <a href="#projects" className="w-full sm:w-auto">
                 <motion.button
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full sm:w-auto px-7 py-3 rounded-xl font-mono text-sm font-semibold bg-[#3D550C] hover:bg-[#2F4307] text-white shadow-md shadow-[#3D550C]/25 flex items-center justify-center gap-2 group transition-all"
+                  className="w-full sm:w-auto px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-[#3D550C] hover:bg-[#2F4307] text-white shadow-md shadow-[#3D550C]/25 flex items-center justify-center gap-2 group transition-all"
                 >
                   View Work
-                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
                 </motion.button>
               </a>
 
@@ -238,23 +238,23 @@ const Landing = () => {
                 <motion.button
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl font-mono text-sm font-semibold border border-stone-300 bg-white text-slate-800 hover:bg-[#F5F7F2] hover:border-[#CEDBBA] shadow-xs flex items-center justify-center gap-2 transition-all"
+                  className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold border border-stone-300 bg-white text-slate-800 hover:bg-[#F5F7F2] hover:border-[#CEDBBA] shadow-xs flex items-center justify-center gap-2 transition-all"
                 >
-                  <Download size={16} className="text-[#3D550C]" />
+                  <Download size={15} className="text-[#3D550C]" />
                   Download CV
                 </motion.button>
               </a>
 
               <button
                 onClick={copyEmailToClipboard}
-                className={`px-4 py-3 rounded-xl font-mono text-xs font-semibold border flex items-center justify-center gap-2 transition-all ${
+                className={`w-full sm:w-auto px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl font-mono text-[11px] sm:text-xs font-semibold border flex items-center justify-center gap-2 transition-all ${
                   copiedEmail
                     ? "bg-[#3D550C] text-white border-[#3D550C]"
                     : "bg-[#EFF4EA] border-[#CEDBBA] text-[#3D550C] hover:bg-[#E3ECD7]"
                 }`}
                 title="Click to copy email address"
               >
-                {copiedEmail ? <CheckCircle2 size={15} /> : <Mail size={15} />}
+                {copiedEmail ? <CheckCircle2 size={14} /> : <Mail size={14} />}
                 {copiedEmail ? "Copied!" : "aashirwad2626@gmail.com"}
               </button>
             </motion.div>
@@ -264,7 +264,7 @@ const Landing = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex items-center gap-3 pt-1"
+              className="flex flex-wrap items-center gap-2 sm:gap-3 pt-1"
             >
               {[
                 { icon: Github, href: "https://github.com/aashirwad89", label: "GitHub" },
@@ -279,13 +279,13 @@ const Landing = () => {
                   rel="noopener noreferrer"
                   whileHover={{ y: -2, scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="p-2.5 rounded-xl border border-stone-200 bg-white text-slate-700 hover:text-[#3D550C] hover:border-[#CEDBBA] hover:bg-[#EFF4EA] shadow-xs transition-all"
+                  className="p-2 sm:p-2.5 rounded-lg sm:rounded-xl border border-stone-200 bg-white text-slate-700 hover:text-[#3D550C] hover:border-[#CEDBBA] hover:bg-[#EFF4EA] shadow-xs transition-all"
                   aria-label={item.label}
                 >
-                  <item.icon size={17} />
+                  <item.icon size={16} />
                 </motion.a>
               ))}
-              <span className="text-xs font-mono text-slate-500 pl-2">
+              <span className="text-[11px] sm:text-xs font-mono text-slate-500 pl-1 sm:pl-2">
                 +91 7024913839 · Bhopal, M.P.
               </span>
             </motion.div>
@@ -308,17 +308,17 @@ const Landing = () => {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.35 }}
-              className="grid grid-cols-3 gap-3 w-full mt-4"
+              className="grid grid-cols-3 gap-2 sm:gap-3 w-full mt-3 sm:mt-4"
             >
               {stats.map((st, i) => (
                 <div
                   key={i}
-                  className="p-3.5 rounded-xl border border-stone-200 bg-white text-center shadow-xs hover:border-[#CEDBBA] transition-all"
+                  className="p-2.5 sm:p-3.5 rounded-xl border border-stone-200 bg-white text-center shadow-xs hover:border-[#CEDBBA] transition-all"
                 >
-                  <div className="text-lg sm:text-xl font-black text-[#3D550C] font-mono">
+                  <div className="text-base sm:text-xl font-black text-[#3D550C] font-mono leading-tight">
                     {st.value}
                   </div>
-                  <div className="text-[10px] font-mono font-bold uppercase tracking-wider mt-0.5 text-slate-500">
+                  <div className="text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider mt-0.5 text-slate-500">
                     {st.label}
                   </div>
                 </div>

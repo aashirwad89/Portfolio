@@ -44,7 +44,7 @@ const Education = () => {
   return (
     <div
       id="education"
-      className="py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
+      className="py-10 sm:py-20 px-3 sm:px-6 lg:px-10 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
     >
       {/* Background Subtle Pattern */}
       <div
@@ -63,28 +63,28 @@ const Education = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
+          className="mb-8 sm:mb-16 text-center"
         >
-          <div className="inline-block mb-3.5">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+          <div className="inline-block mb-2 sm:mb-3.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
               Academic Background
             </span>
           </div>
 
           <h2
             style={{ fontFamily: "'Georgia', serif" }}
-            className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-3"
+            className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-2 sm:mb-3"
           >
             Edu<span className="text-[#3D550C] italic">cation</span>
           </h2>
 
-          <p className="font-mono text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
+          <p className="font-mono text-[11px] sm:text-sm text-slate-500 max-w-md mx-auto">
             formal computer science education and foundational analytical background
           </p>
         </motion.div>
 
-        {/* Education Timeline Cards */}
-        <div className="grid md:grid-cols-3 gap-6 sm:gap-7">
+        {/* Education Timeline Cards: 2 cards per row on mobile */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 lg:gap-7">
           {education.map((edu, index) => {
             const Icon = edu.icon;
             return (
@@ -95,23 +95,25 @@ const Education = () => {
                 viewport={{ once: true, margin: "-40px" }}
                 whileHover={{ y: -3 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-6 sm:p-7 shadow-xs hover:shadow-md hover:shadow-[#3D550C]/5 transition-all relative overflow-hidden flex flex-col justify-between"
+                className={`bg-white rounded-xl sm:rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-3 sm:p-6 lg:p-7 shadow-xs hover:shadow-md hover:shadow-[#3D550C]/5 transition-all relative overflow-hidden flex flex-col justify-between ${
+                  index === 2 ? "col-span-2 lg:col-span-1" : ""
+                }`}
               >
                 {/* Subtle top olive accent highlight */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3D550C] to-[#606C38] opacity-80" />
 
-                <div className="flex flex-col items-start gap-4 h-full justify-between">
+                <div className="flex flex-col items-start gap-2.5 sm:gap-4 h-full justify-between">
                   <div className="w-full">
                     {/* Top Row: Icon + Badges */}
-                    <div className="flex items-center justify-between gap-3 mb-4">
-                      <div className="w-12 h-12 rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] flex items-center justify-center text-xl shrink-0 shadow-xs">
+                    <div className="flex items-start justify-between gap-1.5 sm:gap-3 mb-2 sm:mb-4">
+                      <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] flex items-center justify-center text-sm sm:text-xl shrink-0 shadow-xs">
                         <Icon />
                       </div>
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C]">
+                      <div className="flex flex-wrap items-center justify-end gap-1 sm:gap-1.5">
+                        <span className="font-mono text-[9px] sm:text-xs font-bold px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 rounded sm:rounded-full bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C]">
                           {edu.gpa}
                         </span>
-                        <span className="font-mono text-[11px] font-semibold px-2 py-0.5 rounded-full border border-stone-200 bg-stone-50 text-slate-600">
+                        <span className="font-mono text-[8px] sm:text-[11px] font-semibold px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded sm:rounded-full border border-stone-200 bg-stone-50 text-slate-600">
                           {edu.status === "Pursuing" ? "● Pursuing" : "✓ Completed"}
                         </span>
                       </div>
@@ -119,30 +121,30 @@ const Education = () => {
 
                     <h3
                       style={{ fontFamily: "'Georgia', serif" }}
-                      className="text-lg sm:text-xl font-bold text-slate-900 mb-1"
+                      className="text-xs sm:text-lg font-bold text-slate-900 mb-1 leading-snug line-clamp-2 sm:line-clamp-none"
                     >
                       {edu.degree}
                     </h3>
 
-                    <p className="font-mono text-xs font-semibold text-[#3D550C] mb-2.5">
+                    <p className="font-mono text-[10px] sm:text-xs font-semibold text-[#3D550C] mb-1.5 sm:mb-2.5 line-clamp-1 sm:line-clamp-none">
                       {edu.institution} · <span className="text-slate-600 font-normal">{edu.field}</span>
                     </p>
 
                     {/* Metadata: Location & Period */}
-                    <div className="flex flex-wrap items-center gap-3.5 text-xs font-mono text-slate-500 mb-3.5">
-                      <span className="flex items-center gap-1.5">
-                        <FaMapMarkerAlt className="text-[#3D550C] opacity-75" />
-                        {edu.location}
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3.5 text-[9px] sm:text-xs font-mono text-slate-500 mb-2 sm:mb-3.5">
+                      <span className="flex items-center gap-1">
+                        <FaMapMarkerAlt className="text-[#3D550C] opacity-75 shrink-0" />
+                        <span className="truncate">{edu.location}</span>
                       </span>
-                      <span className="flex items-center gap-1.5">
-                        <FaCalendarAlt className="text-[#3D550C] opacity-75" />
-                        {edu.period}
+                      <span className="flex items-center gap-1">
+                        <FaCalendarAlt className="text-[#3D550C] opacity-75 shrink-0" />
+                        <span className="truncate">{edu.period}</span>
                       </span>
                     </div>
                   </div>
 
                   {/* Note Box */}
-                  <div className="w-full bg-[#FAFBF9] border border-stone-200/80 rounded-xl p-3 text-xs text-slate-600 italic leading-relaxed">
+                  <div className="w-full bg-[#FAFBF9] border border-stone-200/80 rounded-lg sm:rounded-xl p-2 sm:p-3 text-[10px] sm:text-xs text-slate-600 italic leading-snug sm:leading-relaxed line-clamp-3 sm:line-clamp-none">
                     "{edu.note}"
                   </div>
                 </div>
@@ -157,7 +159,7 @@ const Education = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-14 mb-8 text-center font-mono text-xs text-slate-500 tracking-wider"
+          className="mt-8 sm:mt-14 mb-4 sm:mb-8 text-center font-mono text-[11px] sm:text-xs text-slate-500 tracking-wider"
         >
           — continuously expanding engineering horizon &amp; technical acumen —
         </motion.p>

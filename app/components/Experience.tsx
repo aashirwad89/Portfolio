@@ -99,7 +99,7 @@ const Experience = () => {
   return (
     <div
       id="experience"
-      className="py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden bg-[#f7f9f6] text-slate-900"
+      className="py-12 sm:py-20 px-3 sm:px-6 lg:px-10 relative overflow-hidden bg-[#f7f9f6] text-slate-900"
     >
       {/* Delicate background pattern */}
       <div
@@ -118,33 +118,33 @@ const Experience = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16 text-center"
+          className="mb-8 sm:mb-16 text-center"
         >
-          <div className="inline-block mb-3.5">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+          <div className="inline-block mb-2 sm:mb-3.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
               Professional Journey
             </span>
           </div>
 
           <h2
             style={{ fontFamily: "'Georgia', serif" }}
-            className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-3"
+            className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-2 sm:mb-3"
           >
             Work <span className="text-[#3D550C] italic">Experience</span>
           </h2>
 
-          <p className="font-mono text-xs sm:text-sm text-slate-500 max-w-xl mx-auto">
+          <p className="font-mono text-[11px] sm:text-sm text-slate-500 max-w-xl mx-auto px-2">
             2025 – Present · remote &amp; on-site · scalable systems, full stack &amp; tech leadership
           </p>
         </motion.div>
 
-        {/* Cards Grid */}
+        {/* Cards Grid: 2 columns on mobile and desktop */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
-          className="grid md:grid-cols-2 gap-8"
+          className="grid grid-cols-2 gap-3 sm:gap-6 lg:gap-8"
         >
           {experiences.map((exp, index) => {
             const Icon = exp.icon;
@@ -157,31 +157,21 @@ const Experience = () => {
                 className="relative group"
               >
                 {/* Executive Light Card */}
-                <div className="h-full bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-7 shadow-xs hover:shadow-lg hover:shadow-[#3D550C]/5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+                <div className="h-full bg-white rounded-xl sm:rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-3 sm:p-6 lg:p-7 shadow-xs hover:shadow-lg hover:shadow-[#3D550C]/5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
                   {/* Subtle top olive accent highlight */}
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3D550C] via-[#606C38] to-[#A3B18A] opacity-90" />
 
                   {/* Card Top Section */}
                   <div>
-                    {/* Header Row: Icon + Company + Status Badge */}
-                    <div className="flex items-start justify-between gap-4 mb-4">
-                      <div className="flex items-center gap-3.5">
-                        <div className="w-12 h-12 rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] flex items-center justify-center text-[#3D550C] shadow-xs group-hover:scale-105 transition-transform">
-                          <Icon size={20} />
-                        </div>
-                        <div>
-                          <h4 className="font-mono text-sm font-bold text-[#3D550C] tracking-wide">
-                            {exp.company}
-                          </h4>
-                          <span className="inline-block text-[11px] font-mono text-slate-500 uppercase tracking-wider">
-                            {exp.type}
-                          </span>
-                        </div>
+                    {/* Top Row: Icon + Status Stamp */}
+                    <div className="flex items-start justify-between gap-1.5 sm:gap-3 mb-2 sm:mb-3">
+                      <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#EFF4EA] border border-[#CEDBBA] flex items-center justify-center text-[#3D550C] shadow-xs group-hover:scale-105 transition-transform shrink-0">
+                        <Icon className="text-sm sm:text-xl" />
                       </div>
 
                       {/* Status Stamp */}
                       <span
-                        className={`font-mono text-[11px] font-bold px-2.5 py-1 rounded-md border tracking-wider uppercase ${
+                        className={`font-mono text-[9px] sm:text-[11px] font-bold px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded sm:rounded-md border tracking-wider uppercase shrink-0 ${
                           exp.current
                             ? "bg-[#EFF4EA] border-[#CEDBBA] text-[#3D550C]"
                             : "bg-stone-50 border-stone-200 text-slate-500"
@@ -191,49 +181,59 @@ const Experience = () => {
                       </span>
                     </div>
 
+                    {/* Company Name & Type */}
+                    <div className="mb-1.5 sm:mb-2">
+                      <h4 className="font-mono text-[11px] sm:text-sm font-bold text-[#3D550C] tracking-wide leading-tight sm:leading-snug break-words">
+                        {exp.company}
+                      </h4>
+                      <span className="inline-block text-[9px] sm:text-[11px] font-mono text-slate-500 uppercase tracking-wider">
+                        {exp.type}
+                      </span>
+                    </div>
+
                     {/* Role Title */}
                     <h3
                       style={{ fontFamily: "'Georgia', serif" }}
-                      className="text-xl font-bold text-slate-900 mb-2 leading-snug group-hover:text-[#3D550C] transition-colors"
+                      className="text-xs sm:text-xl font-bold text-slate-900 mb-1 sm:mb-2 leading-snug group-hover:text-[#3D550C] transition-colors line-clamp-2 sm:line-clamp-none"
                     >
                       {exp.role}
                     </h3>
 
                     {/* Timeline & Location */}
-                    <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-500 mb-5">
-                      <span className="flex items-center gap-1.5">
-                        <FaCalendarAlt className="text-[#3D550C] opacity-75" />
-                        {exp.period}
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-[9px] sm:text-xs font-mono text-slate-500 mb-2 sm:mb-4">
+                      <span className="flex items-center gap-1">
+                        <FaCalendarAlt className="text-[#3D550C] opacity-75 shrink-0" />
+                        <span className="break-words">{exp.period}</span>
                       </span>
-                      <span className="flex items-center gap-1.5">
-                        <FaMapMarkerAlt className="text-[#3D550C] opacity-75" />
-                        {exp.location}
+                      <span className="flex items-center gap-1">
+                        <FaMapMarkerAlt className="text-[#3D550C] opacity-75 shrink-0" />
+                        <span className="break-words">{exp.location}</span>
                       </span>
                     </div>
 
-                    {/* Dashed divider */}
-                    <div className="border-t border-dashed border-stone-200 mb-4" />
+                    {/* Divider */}
+                    <div className="border-t border-dashed border-stone-200 mb-2.5 sm:mb-4" />
 
                     {/* Description bullet points */}
-                    <ul className="space-y-2.5 mb-6">
+                    <ul className="space-y-1.5 sm:space-y-2.5 mb-3 sm:mb-6">
                       {exp.description.map((item, i) => (
                         <li
                           key={i}
-                          className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans"
+                          className="flex items-start gap-1.5 sm:gap-2.5 text-[10px] sm:text-sm text-slate-600 leading-relaxed font-sans"
                         >
-                          <span className="text-[#3D550C] font-bold mt-0.5 text-xs">→</span>
-                          <span>{item}</span>
+                          <span className="text-[#3D550C] font-bold mt-0.5 text-[9px] sm:text-xs shrink-0">→</span>
+                          <span className="line-clamp-2 sm:line-clamp-none">{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
                   {/* Skills Pill Tags */}
-                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-stone-100">
+                  <div className="flex flex-wrap gap-1 sm:gap-1.5 pt-2 sm:pt-3 border-t border-stone-100">
                     {exp.skills.map((skill, i) => (
                       <span
                         key={i}
-                        className="font-mono text-[11px] font-semibold px-2.5 py-0.5 rounded-md bg-[#F5F7F2] border border-[#E2EADA] text-[#3D550C] hover:bg-[#EFF4EA] transition-colors"
+                        className="font-mono text-[8px] sm:text-[11px] font-semibold px-1.5 py-0.5 sm:px-2.5 sm:py-0.5 rounded sm:rounded-md bg-[#F5F7F2] border border-[#E2EADA] text-[#3D550C] hover:bg-[#EFF4EA] transition-colors"
                       >
                         {skill}
                       </span>

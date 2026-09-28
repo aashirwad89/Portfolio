@@ -86,7 +86,7 @@ const Skills = () => {
   return (
     <div
       id="skills"
-      className="py-20 px-4 sm:px-6 lg:px-10 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
+      className="py-10 sm:py-20 px-3 sm:px-6 lg:px-10 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
     >
       {/* Background ambient subtle glow */}
       <div className="absolute top-1/3 -left-32 w-96 h-96 rounded-full bg-[#3D550C]/5 blur-3xl pointer-events-none" />
@@ -99,31 +99,31 @@ const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-14 text-center"
+          className="mb-8 sm:mb-14 text-center"
         >
-          <div className="inline-block mb-3.5">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+          <div className="inline-block mb-2 sm:mb-3.5">
+            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full border border-[#CEDBBA] bg-[#EFF4EA] text-[#3D550C] font-mono text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
               Technical Arsenal
             </span>
           </div>
 
           <h2
             style={{ fontFamily: "'Georgia', serif" }}
-            className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-3"
+            className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-2 sm:mb-3"
           >
             My <span className="text-[#3D550C] italic">Tech Stack</span>
           </h2>
-          <p className="font-mono text-xs sm:text-sm text-slate-500 max-w-xl mx-auto">
+          <p className="font-mono text-[11px] sm:text-sm text-slate-500 max-w-xl mx-auto">
             Full-stack technologies, databases, computer science foundations &amp; cloud tools
           </p>
 
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mt-5 sm:mt-8">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-1.5 rounded-full font-mono text-xs font-semibold transition-all duration-200 ${
+                className={`px-3 py-1 sm:px-4 sm:py-1.5 rounded-full font-mono text-[11px] sm:text-xs font-semibold transition-all duration-200 cursor-pointer ${
                   activeFilter === cat
                     ? "bg-[#3D550C] text-white shadow-sm shadow-[#3D550C]/25"
                     : "bg-white border border-stone-200/90 text-slate-600 hover:border-[#CEDBBA] hover:bg-[#EFF4EA] hover:text-[#3D550C]"
@@ -135,10 +135,10 @@ const Skills = () => {
           </div>
         </motion.div>
 
-        {/* Skills Cards Grid */}
+        {/* Skills Cards Grid: 2 columns on mobile */}
         <motion.div
           layout
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2.5 sm:gap-4 lg:gap-5"
         >
           {filteredSkills.map((skill, index) => {
             const Icon = skill.icon;
@@ -150,33 +150,33 @@ const Skills = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: index * 0.02 }}
                 whileHover={{ y: -3 }}
-                className="bg-white rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-5 shadow-xs hover:shadow-md hover:shadow-[#3D550C]/5 transition-all flex flex-col justify-between"
+                className="bg-white rounded-xl sm:rounded-2xl border border-stone-200/90 hover:border-[#CEDBBA] p-3 sm:p-5 shadow-xs hover:shadow-md hover:shadow-[#3D550C]/5 transition-all flex flex-col justify-between"
               >
                 <div>
                   {/* Top Row: Icon + Tag */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="w-11 h-11 rounded-xl bg-[#F5F7F2] border border-[#E2EADA] flex items-center justify-center text-xl shadow-xs">
+                  <div className="flex items-center justify-between gap-1 mb-2.5 sm:mb-4">
+                    <div className="w-8 h-8 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-[#F5F7F2] border border-[#E2EADA] flex items-center justify-center text-base sm:text-xl shadow-xs shrink-0">
                       <Icon style={{ color: skill.color }} />
                     </div>
                     {skill.tag && (
-                      <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C]">
+                      <span className="font-mono text-[8px] sm:text-[10px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded sm:rounded-full bg-[#EFF4EA] border border-[#CEDBBA] text-[#3D550C] truncate">
                         {skill.tag}
                       </span>
                     )}
                   </div>
 
                   {/* Title & Category */}
-                  <h3 className="font-bold text-slate-900 text-base mb-0.5">
+                  <h3 className="font-bold text-slate-900 text-xs sm:text-base mb-0.5 truncate">
                     {skill.name}
                   </h3>
-                  <span className="font-mono text-[11px] text-slate-500 block mb-4">
+                  <span className="font-mono text-[9px] sm:text-[11px] text-slate-500 block mb-2.5 sm:mb-4 truncate">
                     {skill.category}
                   </span>
                 </div>
 
                 {/* Progress Bar & Percentage */}
                 <div>
-                  <div className="h-1.5 bg-stone-100 rounded-full overflow-hidden mb-2">
+                  <div className="h-1 sm:h-1.5 bg-stone-100 rounded-full overflow-hidden mb-1.5 sm:mb-2">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
@@ -185,7 +185,7 @@ const Skills = () => {
                       className="h-full bg-gradient-to-r from-[#4A5D23] to-[#3D550C] rounded-full"
                     />
                   </div>
-                  <div className="flex justify-between items-center text-[11px] font-mono text-slate-500">
+                  <div className="flex justify-between items-center text-[9px] sm:text-[11px] font-mono text-slate-500">
                     <span>Proficiency</span>
                     <span className="font-bold text-[#3D550C]">{skill.level}%</span>
                   </div>
@@ -197,7 +197,7 @@ const Skills = () => {
       </div>
 
       {/* Decorative Wavy Border Finish (Wave 3) */}
-      <div className="w-full overflow-hidden leading-none relative z-10 -mb-[1px] mt-16">
+      <div className="w-full overflow-hidden leading-none relative z-10 -mb-[1px] mt-8 sm:mt-16">
         <svg
           className="relative block w-full h-12 sm:h-16 md:h-20"
           viewBox="0 0 1200 120"
