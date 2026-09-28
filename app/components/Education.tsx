@@ -44,7 +44,7 @@ const Education = () => {
   return (
     <div
       id="education"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#F7F9F6] text-slate-900 border-t border-stone-200/70"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
     >
       {/* Background Subtle Pattern */}
       <div
@@ -159,10 +159,41 @@ const Education = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-14 text-center font-mono text-xs text-slate-500 tracking-wider"
+          className="mt-14 mb-8 text-center font-mono text-xs text-slate-500 tracking-wider"
         >
           — continuously expanding engineering horizon &amp; technical acumen —
         </motion.p>
+      </div>
+
+      {/* Decorative Wavy Border Finish (Wave 4) */}
+      <div className="w-full overflow-hidden leading-none relative z-10 -mb-[1px]">
+        <svg
+          className="relative block w-full h-12 sm:h-16 md:h-20"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          {/* Main wave matching Participation section white background */}
+          <path
+            d="M0,50 C250,115 500,-10 740,65 C980,135 1110,30 1200,55 L1200,120 L0,120 Z"
+            fill="#FFFFFF"
+          />
+          {/* Secondary subtle olive wave contour */}
+          <path
+            d="M0,28 C200,98 420,12 680,82 C920,148 1060,42 1200,62"
+            fill="none"
+            stroke="#5A7328"
+            strokeWidth="1.5"
+            strokeOpacity="0.45"
+          />
+          {/* Primary prominent dark green wavy border line */}
+          <path
+            d="M0,50 C250,115 500,-10 740,65 C980,135 1110,30 1200,55"
+            fill="none"
+            stroke="#2F4307"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
       </div>
     </div>
   );

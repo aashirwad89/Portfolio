@@ -24,7 +24,7 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="bg-[#F7F9F6] text-slate-900 border-t border-stone-200/90 relative overflow-hidden"
+      className="bg-[#F7F9F6] text-slate-900 relative overflow-hidden"
     >
       {/* Background subtle micro-dots */}
       <div

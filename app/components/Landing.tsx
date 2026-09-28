@@ -498,6 +498,37 @@ const Landing = () => {
           </a>
         </motion.div>
       </main>
+
+      {/* Decorative Wavy Border Finish (Wave 1) */}
+      <div className="w-full overflow-hidden leading-none relative z-10 -mb-[1px]">
+        <svg
+          className="relative block w-full h-12 sm:h-16 md:h-20"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          {/* Fill path transitioning to next section (#F7F9F6) */}
+          <path
+            d="M0,45 C200,110 450,15 700,70 C950,125 1100,45 1200,65 L1200,120 L0,120 Z"
+            fill="#F7F9F6"
+          />
+          {/* Secondary subtle olive wave contour */}
+          <path
+            d="M0,28 C160,88 360,-15 530,52 C700,118 890,22 1200,62"
+            fill="none"
+            stroke="#5A7328"
+            strokeWidth="1.5"
+            strokeOpacity="0.45"
+          />
+          {/* Primary prominent dark green wavy border line */}
+          <path
+            d="M0,45 C200,110 450,15 700,70 C950,125 1100,45 1200,65"
+            fill="none"
+            stroke="#2F4307"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
     </div>
   );
 };

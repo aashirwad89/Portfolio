@@ -99,7 +99,7 @@ const Experience = () => {
   return (
     <div
       id="experience"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#f7f9f6] text-slate-900 border-t border-stone-200/70"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#f7f9f6] text-slate-900"
     >
       {/* Delicate background pattern */}
       <div
@@ -251,10 +251,41 @@ const Experience = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-14 text-center font-mono text-xs text-slate-500 tracking-wider"
+          className="mt-14 mb-10 text-center font-mono text-xs text-slate-500 tracking-wider"
         >
           — consistently driving engineering excellence &amp; scalable architectures —
         </motion.p>
+      </div>
+
+      {/* Decorative Wavy Border Finish (Wave 2) */}
+      <div className="w-full overflow-hidden leading-none relative z-10 -mb-[1px]">
+        <svg
+          className="relative block w-full h-12 sm:h-16 md:h-20"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          {/* Main wave matching About section white background */}
+          <path
+            d="M0,55 C220,15 450,105 700,50 C920,-5 1080,85 1200,45 L1200,120 L0,120 Z"
+            fill="#FFFFFF"
+          />
+          {/* Secondary subtle olive wave contour */}
+          <path
+            d="M0,38 C300,118 580,-12 880,68 C1040,112 1140,48 1200,38"
+            fill="none"
+            stroke="#5A7328"
+            strokeWidth="1.5"
+            strokeOpacity="0.45"
+          />
+          {/* Primary prominent dark green wavy border line */}
+          <path
+            d="M0,55 C220,15 450,105 700,50 C920,-5 1080,85 1200,45"
+            fill="none"
+            stroke="#2F4307"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
       </div>
     </div>
   );

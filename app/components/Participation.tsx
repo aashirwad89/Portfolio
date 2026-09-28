@@ -142,7 +142,7 @@ const Participation = () => {
   return (
     <div
       id="participation"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-white text-slate-900 border-t border-stone-200/70"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-white text-slate-900"
     >
       {/* Background Subtle Pattern */}
       <div

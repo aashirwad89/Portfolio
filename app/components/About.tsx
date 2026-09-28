@@ -39,7 +39,7 @@ const About = () => {
   return (
     <div
       id="about"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-white text-slate-900 border-t border-stone-200/70"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-white text-slate-900"
     >
       {/* Background ambient subtle glow */}
       <div className="absolute top-1/4 -right-32 w-96 h-96 rounded-full bg-[#3D550C]/5 blur-3xl pointer-events-none" />

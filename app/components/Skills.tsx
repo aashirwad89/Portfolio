@@ -86,7 +86,7 @@ const Skills = () => {
   return (
     <div
       id="skills"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#F7F9F6] text-slate-900 border-t border-stone-200/70"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-[#F7F9F6] text-slate-900"
     >
       {/* Background ambient subtle glow */}
       <div className="absolute top-1/3 -left-32 w-96 h-96 rounded-full bg-[#3D550C]/5 blur-3xl pointer-events-none" />
@@ -194,6 +194,37 @@ const Skills = () => {
             );
           })}
         </motion.div>
+      </div>
+
+      {/* Decorative Wavy Border Finish (Wave 3) */}
+      <div className="w-full overflow-hidden leading-none relative z-10 -mb-[1px] mt-16">
+        <svg
+          className="relative block w-full h-12 sm:h-16 md:h-20"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          {/* Main wave matching Projects section white background */}
+          <path
+            d="M0,55 C160,115 390,20 630,75 C870,130 1030,35 1200,65 L1200,120 L0,120 Z"
+            fill="#FFFFFF"
+          />
+          {/* Secondary subtle olive wave contour */}
+          <path
+            d="M0,32 C220,112 480,-8 740,78 C990,152 1110,42 1200,58"
+            fill="none"
+            stroke="#5A7328"
+            strokeWidth="1.5"
+            strokeOpacity="0.45"
+          />
+          {/* Primary prominent dark green wavy border line */}
+          <path
+            d="M0,55 C160,115 390,20 630,75 C870,130 1030,35 1200,65"
+            fill="none"
+            stroke="#2F4307"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
       </div>
     </div>
   );

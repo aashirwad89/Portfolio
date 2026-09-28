@@ -190,7 +190,7 @@ const Projects = () => {
   return (
     <div
       id="projects"
-      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-white text-slate-900 border-t border-stone-200/70"
+      className="py-24 px-4 sm:px-8 relative overflow-hidden bg-white text-slate-900"
     >
       {/* Background Subtle Mesh */}
       <div
